@@ -1,0 +1,19 @@
+{
+  "name": "student-teacher-appoinment-bookig",
+  "version": "1.0.0",
+  "description": "- **client/**: React frontend with Vite, Tailwind CSS, and Flowbite\r - **server/**: Node.js backend with Express and MongoDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+   
+  "prettier:check": "prettier --check \"server/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+  "prettier:fix": "prettier --write \"server/**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
+
+
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^3.3.2"
+  }
+}

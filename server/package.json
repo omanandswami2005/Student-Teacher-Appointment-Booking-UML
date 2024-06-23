@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "prettier:check": "prettier --check \"models//**//*.{js,json}\"",
+    "prettier:fix": "prettier --write \"models//**//*.{js,json}\""
   },
   "keywords": [
     "student",
@@ -13,5 +15,18 @@
     "system"
   ],
   "author": "omiii",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "depcheck": "^1.4.7",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.4.3",
+    "morgan": "^1.10.0",
+    "winston": "^3.13.0"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.2"
+  }
 }
