@@ -1,6 +1,10 @@
 const app = require('./app');
 const connectDB = require('./db');
 const asyncHandler = require('./utils/asyncHandler');
+const bcrypt = require('bcrypt');
+const { User } = require('./models/User.model');
+const authenticateToken = require('./middlewares/authenticateToken');
+
 const errorHandler = require('./middlewares/errorHandler');
 
 const PORT = process.env.PORT || 8000;
@@ -48,6 +52,14 @@ app.get(
     res.send('This will not be reached');
   })
 );
+
+
+// Routes
+app.use('/admin', require('./routes/adminRoutes'));
+app.use('/teachers', require('./routes/teacherRoutes'));
+app.use('/students', require('./routes/studentRoutes'));
+app.use('/auth', require('./routes/authRoutes'));
+
 
 // Middleware to handle errors
 app.use(errorHandler);

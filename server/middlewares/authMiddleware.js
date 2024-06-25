@@ -2,11 +2,11 @@
 
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
-const User = require('../models/user'); // Assuming a User model
+const User = require('../models/User.model'); // Assuming a User model
 
 const authMiddleware = async (req, res, next) => {
   // Get token from header
-  const token = req.header('Authorization').replace('Bearer ', '');
+  const token = req.header('Authorization')?.replace('Bearer ', '');
 
   // Verify token
   try {

@@ -6,8 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
    
-  "prettier:check": "prettier --check \"server/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
-  "prettier:fix": "prettier --write \"server/**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
+  "prettier:check": "prettier --check \"client/src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+  "prettier:fix": "prettier --write \"client/src/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+  
+  "prettier:checks": "prettier --check \"server/**/*.{js,jsx,ts,tsx,json,css,scss,md}\"",
+  "prettier:fixs": "prettier --write \"server/**/*.{js,jsx,ts,tsx,json,css,scss,md}\""
 
 
   },
