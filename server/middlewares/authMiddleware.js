@@ -1,28 +1,26 @@
-// middlewares/authMiddleware.js
-
 const jwt = require('jsonwebtoken');
-const config = require('../config/config');
-const User = require('../models/User.model'); // Assuming a User model
+const ApiError = require('../utils/ApiError');
+const logger = require('../utils/logger');
+const { config } = require('dotenv').config();
 
-const authMiddleware = async (req, res, next) => {
-  // Get token from header
-  const token = req.header('Authorization')?.replace('Bearer ', '');
+// Authentication middleware
+async function authMiddleware(req, res, next) {
+  const token = req.cookies.token;
+  // logger.info('Token:', token);
 
-  // Verify token
-  try {
-    const decoded = jwt.verify(token, config.jwt.secret);
-    const user = await User.findOne({ _id: decoded.id, 'tokens.token': token });
-
-    if (!user) {
-      throw new Error();
-    }
-
-    req.user = user;
-    req.token = token;
-    next();
-  } catch (error) {
-    res.status(401).json({ error: 'Unauthorized' });
+  if (!token) {
+    logger.warn('No token provided');
+    return next(new ApiError(401, 'Login again to access'));
   }
-};
 
-module.exports = authMiddleware;
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = {...decoded};
+    next(); // User is authenticated, allow access
+  } catch (error) {
+    logger.error('Token verification failed:', error);
+    next(new ApiError(401, 'Unauthorized'));
+  }
+}
+
+module.exports =  authMiddleware;

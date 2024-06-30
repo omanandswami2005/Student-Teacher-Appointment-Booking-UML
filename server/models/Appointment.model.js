@@ -7,7 +7,7 @@ const AppointmentSchema = new mongoose.Schema({
     teacher: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     date: Date,
     message: String,
-    status: { type: String, enum: ['pending', 'approved', 'canceled'], default: 'pending' }
+    status: { type: String, enum: ['pending', 'approved', 'canceled', 'completed'], default: 'pending' }
   });
   
   module.exports = mongoose.model('Appointment', AppointmentSchema);

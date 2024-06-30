@@ -1,11 +1,13 @@
 const app = require('./app');
 const connectDB = require('./db');
 const asyncHandler = require('./utils/asyncHandler');
-const bcrypt = require('bcrypt');
-const { User } = require('./models/User.model');
-const authenticateToken = require('./middlewares/authenticateToken');
+
+
+const authRoutes = require('./routes/authRoutes');
+const protectedRoutes = require('./routes/protectedRoutes');
 
 const errorHandler = require('./middlewares/errorHandler');
+
 
 const PORT = process.env.PORT || 8000;
 connectDB()
@@ -53,12 +55,11 @@ app.get(
   })
 );
 
+// Public routes
+app.use('/api/auth', authRoutes);
 
-// Routes
-app.use('/admin', require('./routes/adminRoutes'));
-app.use('/teachers', require('./routes/teacherRoutes'));
-app.use('/students', require('./routes/studentRoutes'));
-app.use('/auth', require('./routes/authRoutes'));
+// Protected routes
+app.use('/api', protectedRoutes);
 
 
 // Middleware to handle errors

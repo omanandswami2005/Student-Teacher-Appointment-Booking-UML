@@ -5,6 +5,9 @@ const cors = require('cors');
 const morgan = require('morgan');
 const logger = require('./utils/logger');
 const constants = require('./constants');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
 
 const app = express();
 const morganFormat = constants.morganFormat;
@@ -29,6 +32,12 @@ app.use(cors(
 
 //Middlerware to URL encode data
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cookieParser());
+
+app.use(bodyParser.json());
+
+app.use(express.static(path.join(__dirname, 'dist')));
 
 
 
