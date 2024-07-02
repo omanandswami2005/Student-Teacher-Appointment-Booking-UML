@@ -18,8 +18,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       toastOptions={{
         duration: 4000,
         style: {
-          background: '#888',
-          color: '#fff',
+          
           fontWeight: 'bold',
           fontSize: '1.5rem',
           fontFamily: 'times new roman',

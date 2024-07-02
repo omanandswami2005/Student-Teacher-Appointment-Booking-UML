@@ -23,7 +23,7 @@ export const requestHandler = async (apiCall, setLoading, onSuccess, ) => {
           // Redirect to login page
           showErrorToast("Please Wait,\n Redirecting to Login Page...");
          setTimeout(() => {
-          if (isBrowser)  window.location.href = "/login"; 
+          if (isBrowser)  window.location.replace('/login') 
           }, 4500);
           
         }

@@ -29,7 +29,11 @@ const AuthProvider = ({ children }) => {
         showSuccessToast(`${res.message}\n Welcome ${data.name} !`);
         // console.info(data); 
 
-        navigate(`/${data.redirectUrl}/dashboard`); // Redirect to the chat page after successful login
+        navigate(`/${data.redirectUrl}/dashboard`,{
+          replace:true,
+          
+
+        }); // Redirect to the chat page after successful login
       },
      
     );

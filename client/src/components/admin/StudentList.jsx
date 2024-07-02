@@ -98,7 +98,7 @@ await requestHandler(
         <tr>
           <th className="py-2 dark:text-gray-200">Name</th>
           <th className="py-2 dark:text-gray-200">Email ID</th>
-          <th className="py-2 dark:text-gray-200">Status</th>
+          <th className="py-2 dark:text-gray-200">Registration Status</th>
           <th className="py-2 dark:text-gray-200">Actions</th>
         </tr>
       </thead>

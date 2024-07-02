@@ -33,7 +33,7 @@ export const deleteStudent = async (id) => {
 
   //Get All Students
   export const getAllStudents = async ( page, limit) => {
-    const response = await axiosInstance.get('/api/admin/students', {params: {page, limit}});
+    const response = await axiosInstance.get('/api/common/students', {params: {page, limit}});
     return response.data;
   }
 
@@ -47,5 +47,10 @@ export const getAllTeachers = async () => {
 //get counts
 export const getCounts = async () => {
   const response = await axiosInstance.get('/api/common/getcounts');
+  return response.data;
+}
+
+export const getMonthlyData = async () => {
+  const response = await axiosInstance.get('/api/admin/getmonthlydata');
   return response.data;
 }

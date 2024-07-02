@@ -98,15 +98,15 @@ const pendingStudentRegistration = await User.countDocuments({role:'student', ap
 
 const totalAppointments = await appointments.countDocuments();
 
-const pendingAppointments = await appointments.countDocuments({status:'pending'});
+const pendingAppointments = await appointments.countDocuments({status:'Pending'});
 
 const upcomingAppointments = await appointments.countDocuments({
   date: { $gte: new Date() },
-  status: { $in: ['approved'] }
+  status: { $in: ['Approved'] }
 })
-const completedAppointments = await appointments.countDocuments({status:'completed'})
+const completedAppointments = await appointments.countDocuments({status:'Completed'})
 
-const cancledAppointments = await appointments.countDocuments({status:'canceled'})
+const cancledAppointments = await appointments.countDocuments({status:'Canceled'})
 
 const allCounts = {
   totalTeachers,
@@ -124,3 +124,56 @@ res.status(200).json(new ApiResponse(200, {allCounts}, 'Counts found successfull
 
   }
 )
+
+const getMonthlyData = async ()=>{
+
+  const currentYear = new Date().getFullYear();
+
+
+  const appointmentsPipeline = [
+    {
+      $match: {
+        date: {
+          $gte: new Date(`${currentYear}-01-01`),
+          $lte: new Date(`${currentYear}-12-31`)
+        }
+      }
+    },
+    {
+      $group: {
+        _id: { $month: '$date' },
+        count: { $sum: 1 }
+      }
+    },
+    {
+      $sort: { '_id': 1 }
+    }
+  ];
+  
+  const appointmentsData = await appointments.aggregate(appointmentsPipeline);
+  
+  const appointmentCounts = new Array(12).fill(0);
+      appointmentsData.forEach(item => {
+        appointmentCounts[item._id - 1] = item.count;
+      });
+  
+      const appointmentData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'],
+        datasets: [
+          {
+            label: 'Appointments',
+            data: appointmentCounts,
+            fill: false,
+            backgroundColor: 'rgba(75,192,192,0.4)',
+            borderColor: 'rgba(75,192,192,1)',
+          },
+        ],
+      };
+      return  appointmentData ;
+}
+
+
+exports.getMonthlyData =  asyncHandler(async (req, res) => {
+  const appointmentData = await getMonthlyData();
+  res.status(200).json(new ApiResponse(200, { appointmentData }, 'Monthly data found successfully'));
+});

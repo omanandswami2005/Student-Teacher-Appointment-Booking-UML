@@ -10,12 +10,13 @@ router.put('/approve/:id', authMiddleware, adminController.approveStudent);
 
 router.delete('/student/:id', authMiddleware, adminController.deleteStudent);
 
-router.get('/students', authMiddleware, adminController.viewAllStudents);
 
 router.get('/appointments', authMiddleware, adminController.viewAllAppointments);
 router.get('/messages', authMiddleware, adminController.viewAllMessages);
 
 router.get('/teachers', authMiddleware, adminController.viewAllTeachers);
+
+router.get('/getmonthlydata',  adminController.getMonthlyData);
 
 
 

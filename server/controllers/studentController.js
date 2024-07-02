@@ -9,31 +9,7 @@ const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 
 
-// Login
-exports.login = asyncHandler(async (req, res) => {
-    const { email, password } = req.body;
-    const user = await User.findOne({ email });
-    if (!user) {
-      throw new ApiError(404, 'User not found');
-    }
-    const passwordMatch = await bcrypt.compare(password, user.password);
 
-    if (!passwordMatch) {
-      throw new ApiError(401, 'Invalid credentials');
-    }
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, { expiresIn: config.jwt.expiration });
-    res.status(200).json(new ApiResponse(200, { token }, 'Login successful'));
-});
-
-// Register
-exports.register = asyncHandler( async (req, res) => {
-  const { name, email, password } = req.body;
- 
-    const newUser = new User({ name, email, password, role: 'student' });
-    await newUser.save();
-    res.status(201).json(new ApiResponse(201, {newUser}, 'Registration successful, pending approval'));
- 
-});
 
 // Search Teacher
 exports.searchTeachers = asyncHandler(async (req, res) => {

@@ -1,11 +1,12 @@
 // import React from 'react';
 import  {requestHandler}  from '../utils';
 import {logoutUser} from '../api/authApi';
-// import {useNavigate} from 'react-router-dom';
+
+import {useNavigate} from 'react-router-dom';
 
 const LogoutButton = () => {
 
-    // const nav = useNavigate();
+    const nav = useNavigate();
 
     const onLogout = async () => {
 
@@ -16,7 +17,7 @@ async () => await logoutUser(),
 null,
 (res) => {
   console.log(res);
-  window.location.href='/login';
+  nav('/login',{replace:true});
 }
         )
 

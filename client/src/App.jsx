@@ -4,7 +4,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 
 import PrivateRoute from './components/PrivateRoute';
-import TechDash from './pages/TechDash';
+import TeacherDashboard from './pages/TeacherDashboard';
 import StudentDash from './pages/StudentDash';
 import { Navigate } from 'react-router-dom';
 import TeacherManagement from './components/admin/TeacherManagement';
@@ -30,9 +30,11 @@ function App() {
         <Route path="/student" element={<PrivateRoute role="student" />}>
           <Route path="dashboard" element={<StudentDash/>} />
         </Route>
+        
 
         <Route path="/teacher" element={<PrivateRoute role="teacher" />}>
-          <Route path="dashboard" element={<TechDash />} />
+        <Route index element={<Navigate to="dashboard" replace />} />
+          <Route path="dashboard" element={<TeacherDashboard />} />
         </Route>
 
 

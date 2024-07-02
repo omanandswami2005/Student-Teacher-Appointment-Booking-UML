@@ -78,7 +78,7 @@ const KeyMetrics = () => {
           </button>
           <button className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md">
             <h3 className="text-xl font-semibold mb-4 dark:text-gray-200">Cancelled Appointments</h3>
-            <p className="text-3xl font-bold dark:text-gray-200">{counts.cancelledAppointments}</p>
+            <p className="text-3xl font-bold dark:text-gray-200">{counts.cancledAppointments}</p>
           </button>
         </div>
       </div>

@@ -21,7 +21,7 @@ const navigate = useNavigate();
        const res = await checkAuthUser();
        console.log(res);
        if (res.success) {
-         navigate(`/${res.data.user.role}`);
+         navigate(`/${res.data.user.role}`,{replace:true});
        }
      } catch (error) {
       //  console.error(error);
