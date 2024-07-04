@@ -1,11 +1,12 @@
 // import { useState,useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
+import StudentRegistration from './pages/StudentRegistration';
 import Dashboard from './pages/Dashboard';
 
 import PrivateRoute from './components/PrivateRoute';
 import TeacherDashboard from './pages/TeacherDashboard';
-import StudentDash from './pages/StudentDash';
+import StudentDashboard from './pages/StudentDashboard';
 import { Navigate } from 'react-router-dom';
 import TeacherManagement from './components/admin/TeacherManagement';
 import StudentManagement from './components/admin/StudentManagement';
@@ -18,6 +19,7 @@ function App() {
 
    <Routes>
  <Route path="/login" element={<Login />} />
+ <Route path="/register" element={<StudentRegistration />} />
         
         <Route path="/admin" element={<PrivateRoute role="admin" />}>
           <Route index element={<Navigate to="dashboard" replace />} />
@@ -28,9 +30,10 @@ function App() {
         </Route>
         
         <Route path="/student" element={<PrivateRoute role="student" />}>
-          <Route path="dashboard" element={<StudentDash/>} />
+        <Route index element={<Navigate to="dashboard" replace />} />
+          <Route path="dashboard" element={<StudentDashboard/>} />
         </Route>
-        
+
 
         <Route path="/teacher" element={<PrivateRoute role="teacher" />}>
         <Route index element={<Navigate to="dashboard" replace />} />

@@ -7,5 +7,9 @@ router.get('/getcounts',adminController.getAllCounts);
 
 router.get('/students',  adminController.viewAllStudents);
 
+router.get('/teachers',  adminController.viewAllTeachers);
+
+router.get('/')
+
 
 module.exports = router;

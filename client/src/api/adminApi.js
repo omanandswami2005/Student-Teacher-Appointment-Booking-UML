@@ -40,7 +40,7 @@ export const deleteStudent = async (id) => {
 
 //Get All Teachers
 export const getAllTeachers = async () => {
-  const response = await axiosInstance.get('/api/admin/teachers');
+  const response = await axiosInstance.get('/api/common/teachers');
   return response.data;
 }
 

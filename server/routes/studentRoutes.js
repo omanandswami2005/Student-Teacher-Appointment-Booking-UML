@@ -6,6 +6,6 @@ const authMiddleware = require('../middlewares/authMiddleware');
 
 router.get('/teachers', authMiddleware, studentController.searchTeachers);
 router.post('/appointments', authMiddleware, studentController.bookAppointment);
-router.post('/messages', authMiddleware, studentController.sendMessage);
+router.get('/appointments', authMiddleware, studentController.viewAllAppointments);
 
 module.exports = router;

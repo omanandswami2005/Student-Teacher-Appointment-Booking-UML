@@ -2,8 +2,9 @@ import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { requestHandler } from '../../utils';
 import { getAllStudents } from '../../api/adminApi';
+import { getAllTeachers } from '../../api/adminApi';
 
-const StudentDropdownSearch = ({ formData, setFormData }) => {
+const StudentDropdownSearch = ({ formData, setFormData, IsTeacher }) => {
   const [students, setStudents] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [dropdownVisible, setDropdownVisible] = useState(false);
@@ -11,17 +12,17 @@ const StudentDropdownSearch = ({ formData, setFormData }) => {
   useEffect(() => {
     const fetchStudents = async () => {
       await requestHandler(
-        async () => await getAllStudents(),
+        async () => IsTeacher ? await getAllTeachers() : await getAllStudents(),
         null,
         (res) => {
           const { data } = res;
-          setStudents(data.students);
+          setStudents(IsTeacher ? data.TeacherList : data.students);
         }
       );
     };
 
     fetchStudents();
-  }, []);
+  }, [IsTeacher]);
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -36,16 +37,29 @@ const StudentDropdownSearch = ({ formData, setFormData }) => {
     setDropdownVisible(false);
     setSearchTerm('');
   };
+  const handleTeachertSelect = (studentId) => {
+    console.log(studentId);
+    setFormData({
+      ...formData,
+      teacher: studentId,
+    });
+    setDropdownVisible(false);
+    setSearchTerm('');
+  };
 
   const filteredStudents = students.filter((student) =>
     student.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const selectedStudentName = students.find(student => student._id === formData.student)?.name || 'Select Student For Appointment';
+  const selectedStudentName = students.find(student => 
+    IsTeacher ? student.id === formData.teacher : student._id === formData.student
+  )?.name || `Select ${IsTeacher ? 'Teacher' : 'Student'} Name`;
+  
 
   return (
     <div className="relative">
-        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="date">Student</label>
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="date">{IsTeacher ? 'Teacher Name' : 'Student Name'}</label>
+    
       <button
         id="dropdownSearchButton"
         onClick={() => setDropdownVisible(!dropdownVisible)}
@@ -84,7 +98,7 @@ const StudentDropdownSearch = ({ formData, setFormData }) => {
           </div>
           <ul className="px-3 pb-3 overflow-y-auto text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownSearchButton">
             {filteredStudents.map(student => (
-              <li key={student._id} onClick={() => handleStudentSelect(student._id)}>
+              <li key={IsTeacher ? student.id : student._id} onClick={() => {IsTeacher ? handleTeachertSelect(student.id) : handleStudentSelect(student._id)}}>
                 <div className="flex items-center pl-2 rounded hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer">
                   <label className="w-full py-2 ml-2 text-sm font-medium text-gray-900 rounded dark:text-gray-300">
                     {student.name}
@@ -103,6 +117,7 @@ const StudentDropdownSearch = ({ formData, setFormData }) => {
 StudentDropdownSearch.propTypes = {
   setFormData: PropTypes.func.isRequired,
   formData: PropTypes.object.isRequired,
+  IsTeacher: PropTypes.bool.isRequired
 };
 
 export default StudentDropdownSearch;

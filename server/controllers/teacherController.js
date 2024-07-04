@@ -18,7 +18,7 @@ exports.scheduleAppointment = asyncHandler(async (req, res) => {
   if (!message) {
     throw new ApiError(400, 'Message is required');
   }
-  const newAppointment = new Appointment({ student: student, teacher: req.user.userId, date, message });
+  const newAppointment = new Appointment({ student: student, teacher: req.user.user._id, date, message });
 
   await newAppointment.save();
   res.status(201).json(new ApiResponse(201, { newAppointment }, 'Appointment scheduled successfully'));
@@ -41,14 +41,16 @@ exports.updateAppointmentStatus = asyncHandler(async (req, res) => {
 
 // View Messages
 exports.viewMessages = asyncHandler(async (req, res) => {
-  const messages = await Message.find({ recipient: req.user.userId });
+  const messages = await Message.find({ recipient: req.user._id });
   res.status(200).json(new ApiResponse(200, { messages }, 'Messages found successfully'));
 });
 
 // View All Appointments
 exports.viewAllAppointments = asyncHandler(async (req, res) => {
-  console.log(req.user)
-  const appointments = await Appointment.find({ teacher: req.user.userId }).populate('student');
+  console.log(req.user.user._id)
+  const appointments = await Appointment.find({ teacher: req.user.user._id }).populate('student');
+
+  console.log(appointments);
 
   res.status(200).json(new ApiResponse(200, { appointments }, 'Appointments found successfully'));
 });

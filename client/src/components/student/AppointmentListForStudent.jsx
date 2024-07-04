@@ -1,14 +1,12 @@
 import { useEffect, useState } from 'react';
 import { requestHandler } from '../../utils';
-import { showSuccessToast } from '../../utils/toastUtils';
-import { getAllAppointments, updateAppointmentStatus } from '../../api/teacherApi';
-import NewAppointmentModal from './NewAppointmentModal';
+import { getAllAppointments } from '../../api/studentApi';
+import NewAppointmentModal from '../teacher/NewAppointmentModal';
 import { Button } from 'flowbite-react';
 import PropType from 'prop-types';
 
 const statusOptions = ['Pending', 'Approved', 'Canceled', 'Completed'];
-
-const AppointmentsList = ({ IsTeacher }) => {
+const AppointmentsListForStudent = ({ IsTeacher }) => {
   const [appointments, setAppointments] = useState([]);
   const [newAppointmentModal, setNewAppointmentModal] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -32,27 +30,13 @@ const AppointmentsList = ({ IsTeacher }) => {
       null,
       (res) => {
         const { data } = res;
+        // console.log(res)
         setAppointments(data.appointments);
       }
     );
   };
 
-  const handleStatusChange = async (appointmentId, newStatus) => {
-    await requestHandler(
-      async () => await updateAppointmentStatus(appointmentId, newStatus),
-      null,
-      (res) => {
-        setAppointments((prevAppointments) =>
-          prevAppointments.map((appointment) =>
-            appointment._id === appointmentId
-              ? { ...appointment, status: newStatus }
-              : appointment
-          )
-        );
-        showSuccessToast(res.message);
-      }
-    );
-  };
+  
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
@@ -61,10 +45,14 @@ const AppointmentsList = ({ IsTeacher }) => {
   const handleFilterChange = (e) => {
     setStatusFilter(e.target.value);
   };
-console.log(appointments);
-  const filteredAppointments = appointments.filter((appointment) =>
-    appointment.student.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-    (statusFilter === '' || appointment.status === statusFilter)
+
+//   console.log(appointments);
+
+  const filteredAppointments = appointments.filter((appointment) => !IsTeacher ? 
+  appointment.student.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+  (statusFilter === '' || appointment.status === statusFilter) : 
+  appointment.teacher.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
+  (statusFilter === '' || appointment.status === statusFilter)
   );
 
   return (
@@ -80,7 +68,7 @@ console.log(appointments);
         <div className="flex justify-between mb-4">
           <input
             type="text"
-            placeholder="Search by student name"
+            placeholder={!IsTeacher ? 'Search by student name' : 'Search by teacher name'}
             value={searchTerm}
             onChange={handleSearchChange}
             className="p-2 border rounded-md  dark:bg-gray-700 dark:text-white"
@@ -104,7 +92,7 @@ console.log(appointments);
             <thead>
               <tr>
                 <th className="py-2 px-4 border-b">Sr. No</th>
-                <th className="py-2 px-4 border-b">Student</th>
+                <th className="py-2 px-4 border-b">{!IsTeacher ? 'Student Name' : 'Teacher Name'}</th>
                 <th className="py-2 px-4 border-b">Date</th>
                 <th className="py-2 px-4 border-b">Appointment Status</th>
                 <th className="py-2 px-4 border-b">Message</th>
@@ -114,22 +102,12 @@ console.log(appointments);
               {filteredAppointments.map((appointment, index) => (
                 <tr key={appointment._id}>
                   <td className="py-2 px-4 border-b">{index + 1}</td>
-                  <td className="py-2 px-4 border-b">{appointment.student.name}</td>
+                  <td className="py-2 px-4 border-b">{!IsTeacher ? appointment.student.name : appointment.teacher.name}</td>
                   <td className="py-2 px-4 border-b">
                     {new Date(appointment.date).toLocaleDateString()}
                   </td>
                   <td className="py-2 px-4 border-b">
-                    <select
-                      value={appointment.status}
-                      onChange={(e) => handleStatusChange(appointment._id, e.target.value)}
-                      className="bg-white border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    >
-                      {statusOptions.map((status) => (
-                        <option key={status} value={status}>
-                          {status}
-                        </option>
-                      ))}
-                    </select>
+                    {appointment.status}
                   </td>
                   <td className="py-2 px-4 border-b w-1/4">
                     <div className="whitespace-normal break-words">{appointment.message}</div>
@@ -152,8 +130,8 @@ console.log(appointments);
   );
 };
 
-AppointmentsList.propTypes = {
+AppointmentsListForStudent.propTypes = {
   IsTeacher: PropType.bool.isRequired,
 };
 
-export default AppointmentsList;
+export default AppointmentsListForStudent;
