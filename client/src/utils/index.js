@@ -10,12 +10,14 @@ export const requestHandler = async (apiCall, setLoading, onSuccess, ) => {
     try {
         const response = await apiCall();
         // const { data } = response;
+        console.log(response);
         if (response?.success) {
             // Call the onSuccess callback with the response data
-            // console.log(response);
             onSuccess(response);
         }
     } catch (error) {
+console.log(error)
+
       showErrorToast(error?.response?.data?.error || "Something went wwwwwwrong");
         // Handle error cases, including unauthorized and forbidden cases
         

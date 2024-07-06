@@ -10,7 +10,9 @@ import StudentDashboard from './pages/StudentDashboard';
 import { Navigate } from 'react-router-dom';
 import TeacherManagement from './components/admin/TeacherManagement';
 import StudentManagement from './components/admin/StudentManagement';
-
+import VerifyEmail from './components/VerifyEmail';
+import ForgotPassword from './components/ForgotPassword';
+import ResetPassword from './components/ResetPassword';
 function App() {
 
 
@@ -20,6 +22,12 @@ function App() {
    <Routes>
  <Route path="/login" element={<Login />} />
  <Route path="/register" element={<StudentRegistration />} />
+ <Route path="/verify-email" element={<VerifyEmail />} />
+ <Route path="/forgot-password" element={<ForgotPassword />} />
+ <Route path="/reset-password" element={<ResetPassword />} />
+
+
+
         
         <Route path="/admin" element={<PrivateRoute role="admin" />}>
           <Route index element={<Navigate to="dashboard" replace />} />

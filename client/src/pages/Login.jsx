@@ -3,13 +3,12 @@ import  { useState, useEffect } from 'react';
 import  useAuth  from '../hooks/useAuth';
 import {checkAuthUser} from '../api/authApi';
 import { useNavigate } from 'react-router-dom';
-
+import { showErrorToast } from '../utils/toastUtils';
 
 const Login = () => {
 const { login } = useAuth();
 
 const navigate = useNavigate();
-
 
 
     useEffect(() => {
@@ -21,8 +20,9 @@ const navigate = useNavigate();
     try {
       const res = await checkAuthUser();
       const { data } = res;
+      console.log(data,res)
         if (res.success) {
-          navigate(`/${data.user.redirectUrl}/dashboard`, {
+          navigate(`/${data.user.redirectUrl || data.user.role}/dashboard`, {
             replace: true,
           });
         }
@@ -61,7 +61,13 @@ const togglePasswordVisibility = () => {
   };
 
    // Function to handle the login process
-   const handleLogin = async () => await login(data);
+   const handleLogin = async () => {
+    if (!data.email || !data.password) {
+      showErrorToast("Please fill in all fields");
+      return;
+    }
+    await login(data);
+   }
 
 
   return (<div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
@@ -99,14 +105,16 @@ const togglePasswordVisibility = () => {
             onChange={handleDataChange("password")}
             placeholder="********"
           />
-            <button 
-              type="button" 
-              onClick={togglePasswordVisibility} 
-              className="  text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 border rounded-md mt-2 p-2"
-              disabled={data.password.length === 0}
-            >
-            {showPassword ? 'Hide Password' : 'Show Password'}
-            </button>
+           <button 
+  type="button" 
+  onClick={togglePasswordVisibility} 
+  className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 border rounded-md mt-2 px-2 py-1 text-xs"
+  disabled={data.password.length === 0}
+>
+  {showPassword ? 'Hide Password' : 'Show Password'}
+</button>
+
+          <a href="/forgot-password" className="text-sm font-medium ml-36 text-indigo-600 dark:text-indigo-400 hover:text-indigo-500"> Forgot your password? </a>
         </div>
         <div>
           <button

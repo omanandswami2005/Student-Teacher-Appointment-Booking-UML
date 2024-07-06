@@ -6,11 +6,14 @@ import {checkAuthUser} from '../api/authApi';
 import { useNavigate } from 'react-router-dom';
 
 
+
 const StudentRegistration = () => {
 
   const {  register } = useAuth();
 
 const navigate = useNavigate();
+
+const [errors, setErrors] = useState({}); // State for validation errors
 
 
 useEffect(()=>{
@@ -57,7 +60,36 @@ const handleDataChange =
   };
 
 
-  const handleRegister = async () => await register(data);
+  const handleRegister = async (event) => {
+    event.preventDefault(); // Prevent default form submission
+
+    // 1. Validate the form data
+    const validationErrors = validateForm(data);
+    setErrors(validationErrors);
+
+    // 2. If no errors, proceed with registration
+    if (Object.keys(validationErrors).length === 0) {
+     
+        await register(data); // Your registration function
+        // Handle success (e.g., show a success message)
+     
+    }
+  };
+
+  const validateForm = (data) => {
+    const errors = {};
+    // Validation rules
+    if (!data.name.trim()) {
+      errors.name = "Name is required.";
+    }
+    if (!data.email || !/\S+@\S+\.\S+/.test(data.email)) {
+      errors.email = "Please enter a valid email address.";
+    }
+    if (!data.password || data.password.length < 8) {
+      errors.password = "Password must be at least 8 characters long.";
+    }
+    return errors;
+  };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900 p-4">
@@ -77,6 +109,7 @@ const handleDataChange =
               required
               placeholder='e.g. Omanand Prashant Swami'
             />
+            {errors.name && <span className="text-red-500 text-sm">{errors.name}</span>}
           </div>
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-400">
@@ -91,6 +124,7 @@ const handleDataChange =
               required
               placeholder="e.g. mail@example.com"
             />
+            {errors.email && <span className="text-red-500 text-sm">{errors.email}</span>}
           </div>
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-gray-700 dark:text-gray-400">
@@ -105,6 +139,7 @@ const handleDataChange =
               className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-gray-950 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
               required
             />
+            
              <button 
               type="button" 
               onClick={togglePasswordVisibility} 
@@ -113,6 +148,7 @@ const handleDataChange =
             >
             {showPassword ? 'Hide Password' : 'Show Password'}
             </button>
+            {errors.password && <span className="text-red-500 text-sm">{errors.password}</span>}
           </div>
           <div>
             <button

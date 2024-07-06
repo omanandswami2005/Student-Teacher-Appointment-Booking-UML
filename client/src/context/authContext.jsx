@@ -45,8 +45,8 @@ const AuthProvider = ({ children }) => {
     await requestHandler(
       async () => await registerUser(data),
       setIsLoading,
-      () => {
-        showSuccessToast("Account created successfully! \nGo ahead and login.");
+      (res) => {
+        showSuccessToast(`${res.message}`);
         navigate("/login"); // Redirect to the login page after successful registration
       },
      
