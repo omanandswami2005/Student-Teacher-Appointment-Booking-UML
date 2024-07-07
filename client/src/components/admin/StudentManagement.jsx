@@ -4,7 +4,7 @@ import StudentList from "./StudentList";
 const StudentManagement = () => {
     return (
         <div className="container mx-auto p-1">
-            <Navbar title="Student Management !!!" />
+            <Navbar title="Student Management !" />
             <StudentList />
         </div>
     );

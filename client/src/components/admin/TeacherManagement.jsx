@@ -6,6 +6,7 @@ import { getAllTeachers, deleteTeacher ,addTeacher, updateTeacher as e} from '..
 import Navbar from '../Navbar';
 import toast from 'react-hot-toast';
 
+
 const initialTeachers = [
   { id: 1, name: 'Mr. Brown', department: 'Math', subject: 'Algebra' },
   { id: 2, name: 'Ms. Green', department: 'Science', subject: 'Physics' },
@@ -125,10 +126,9 @@ toast.success(`${res.message}`);
   return (
     <>
       <div className="container mx-auto p-1">
-        <Navbar title={'Teacher Management !!!'} />
-        <div className="p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md my-3">
-          <button
-            className="mb-4 px-4 py-2 bg-blue-600 text-white rounded flex items-center dark:bg-blue-800 dark:hover:bg-blue-900"
+        <Navbar title={'Teacher Management !'} />
+        <button
+            className="my-4 px-4 py-2 bg-blue-600 text-white rounded flex items-center dark:bg-blue-800 dark:hover:bg-blue-900"
             onClick={openAddModal}
           >
             <span>Add Teacher</span>
@@ -136,13 +136,31 @@ toast.success(`${res.message}`);
               <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 12h14m-7 7V5"/>
             </svg>
           </button>
+        <div className="p-3 bg-white dark:bg-gray-800 w-full rounded-lg shadow-md my-3 overflow-x-auto">
+         
 
-          <ul>
-            {teachers?.map((teacher) => (
-              <li key={teacher.id} className="mb-2 flex justify-between bg-gray-50 dark:bg-gray-900 dark:text-gray-200 p-4 rounded-lg">
+          <ul className="divide-y divide-gray-200 dark:divide-gray-700 w-full">  
+
+          {/* <li key={"header"} className="mb-2 flex justify-between bg-gray-50 dark:bg-gray-900 dark:text-gray-200 p-4 rounded-lg">
                 <div>
+                  Name - Department (Subject)
+                </div>
+                <div>
+                  Email (User Name)
+                </div>
+                <div>
+                 Actions
+                </div>
+              </li> */}
+            {teachers.length === 0 && <li>No teachers found</li>}
+            {teachers?.map((teacher) => ( <>
+              
+            
+              <li key={teacher.id} className="mb-2 flex justify-between bg-gray-50 dark:bg-gray-900 dark:text-gray-200 p-4 rounded-lg overflow-x-auto w-full">
+                <div className="mx-3">
                   {teacher.name} - {teacher.department} ({teacher.subject})
                 </div>
+                <div className=" m-3">{teacher.email}</div>
                 <div>
                   <button
                     type="button"
@@ -160,6 +178,7 @@ toast.success(`${res.message}`);
                   </button>
                 </div>
               </li>
+              </>
             ))}
           </ul>
           <AddTeacherModal isOpen={isAddModalOpen} onClose={closeAddModal} onAddTeacher={handleAdd} />

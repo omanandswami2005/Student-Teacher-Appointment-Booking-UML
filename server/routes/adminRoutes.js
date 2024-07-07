@@ -12,7 +12,6 @@ router.delete('/student/:id', authMiddleware, adminController.deleteStudent);
 
 
 router.get('/appointments', authMiddleware, adminController.viewAllAppointments);
-router.get('/messages', authMiddleware, adminController.viewAllMessages);
 
 router.get('/teachers', authMiddleware, adminController.viewAllTeachers);
 

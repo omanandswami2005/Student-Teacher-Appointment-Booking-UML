@@ -22,11 +22,12 @@ exports.checkAuth = asyncHandler(async (req, res) => {
 exports.register = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
-  // Check if the email already exists
-  const existingUser = await User.findOne({ email });
-  if (existingUser) {
-    throw new ApiError(409, 'User already exists');
-  }
+
+ //limit the number of students
+ const students = await User.countDocuments({ role: 'student' });
+ if (students >= 20) {
+   throw new ApiError(400, 'Sorry, The Student Quota has been reached :(');
+ }
 
   // Hash the password
   const hashedPassword = await bcrypt.hash(password, 10);

@@ -3,23 +3,37 @@ const asyncHandler = require('../utils/asyncHandler');
 const ApiError  = require('../utils/ApiError');
 const ApiResponse = require('../utils/ApiResponse');
 const appointments = require('../models/Appointment.model');
-const messages = require('../models/Message.model');
+const bcrypt = require('bcrypt');
 
 
+const constantTeachers = ["668ac01fbf498dba5c703408","668ac03ebf498dba5c70340c","668ac06abf498dba5c703410","668ac090bf498dba5c703414"]
 
 // Add Teacher
 exports.addTeacher = asyncHandler(async (req, res) => {
   const { name, email, password, department, subject } = req.body;
-  const newUser = new User({ name, email, password, department, subject, role: 'teacher' });
+ 
+  //limit the number of teachers
+  const teachers = await User.countDocuments({ role: 'teacher' });
+  if (teachers >= 10) {
+    throw new ApiError(400, 'Sorry, The Teacher Quota has been reached :(');
+  }
+  // Hash the password
+  const hashedPassword = await bcrypt.hash(password, 10);
+  const newUser = new User({ name, email, password: hashedPassword, department, subject, role: 'teacher',approved:true, isVerified: true });
   await newUser.save();
 
-  res.status(201).json(new ApiResponse(201, {newUser}, 'Teacher added successfully'));
+  res.status(201).json(new ApiResponse(201, {newUser}, 'Teacher added successfully !'));
 });
 
 // Update Teacher
 exports.updateTeacher = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { name, department, subject } = req.body;
+
+
+if(constantTeachers.includes(id)){
+  throw new ApiError(400, 'This Teacher Cannot Be Updated !');
+}
 
   const updatedTeacher = await User.findByIdAndUpdate(id, { name, department, subject }, { new: true });
   res.status(200).json(new ApiResponse(200, {updatedTeacher}, 'Teacher updated successfully'));
@@ -28,6 +42,10 @@ exports.updateTeacher = asyncHandler(async (req, res) => {
 // Delete Teacher
 exports.deleteTeacher = asyncHandler(async (req, res) => {
   const { id } = req.params;
+if(constantTeachers.includes(id)){
+  throw new ApiError(400, 'This Teacher Cannot Be Deleted !');
+}
+
   await User.findByIdAndDelete(id);
   res.status(200).json(new ApiResponse(200, null, 'Teacher deleted successfully'));
 });
@@ -35,6 +53,10 @@ exports.deleteTeacher = asyncHandler(async (req, res) => {
 // Approve Registration
 exports.approveStudent = asyncHandler(async (req, res) => {
   const { id } = req.params;
+if(id ==="668abc8e8b7083333d78e3e4"){
+  throw new ApiError(400, 'This Student Cannot Be Restricted !');
+}
+
 // Find the student by ID and role
 const student = await User.findOne({ _id: id, role: 'student' }).select('-password -role -__v');
 // Toggle the approved value
@@ -57,6 +79,9 @@ exports.viewAllStudents = asyncHandler(async (req, res) => {
 //Delete Student
 exports.deleteStudent = asyncHandler(async (req, res) => {
   const { id } = req.params;
+  if (id =="668abc8e8b7083333d78e3e4"){
+    throw new ApiError(400, 'This Student Cannot Be Deleted !');
+  }
   await User.findByIdAndDelete(id);
   res.status(200).json(new ApiResponse(200, null, 'Student deleted successfully'));
 });
@@ -68,7 +93,7 @@ exports.viewAllTeachers = asyncHandler(async (req, res) => {
   // console .info(teachers);
   const TeacherList = teachers.map((teacher) => {
     return { id: teacher._id, name: teacher.name, 
-      department: teacher.department, subject: teacher.subject
+      department: teacher.department, subject: teacher.subject,email:teacher.email,
      }
   })
   res.status(200).json(new ApiResponse(200, { TeacherList }, 'Teachers found successfully'));
@@ -80,11 +105,7 @@ exports.viewAllAppointments = asyncHandler(async (req, res) => {
   res.status(200).json(new ApiResponse(200, { appointments }, 'Appointments found successfully'));
 })
 
-// View All Messages
-exports.viewAllMessages = asyncHandler(async (req, res) => {
-  const messages = await messages.find();
-  res.status(200).json(new ApiResponse(200, { messages }, 'Messages found successfully'));
-})
+
 
 //get all counts (total teacher, total students, total appintments, pending requests of student ,approved requests of students and pending appointments)
 

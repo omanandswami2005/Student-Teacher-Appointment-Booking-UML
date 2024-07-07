@@ -42,13 +42,14 @@ const fetchStudents = async (page, limit) => {
 
   const handleApprove = async (id) => {
     // console.log(students);
-    setStudents(students.map(student => student._id === id ? { ...student, approved: !student.approved } : student));
+    // setStudents(students.map(student => student._id === id ? { ...student, approved: !student.approved } : student));
 
 await requestHandler(
   async () => await approveStudent(id),
   null,
   (res) => {
     toast.success(res.message);
+    fetchStudents();
   }
 )
 
@@ -93,6 +94,7 @@ await requestHandler(
       value={filter}
       onChange={(e) => setFilter(e.target.value)}
     />
+    <div className="overflow-x-auto">
     <table className="min-w-full bg-white dark:bg-gray-800">
       <thead>
         <tr>
@@ -126,6 +128,7 @@ await requestHandler(
         ))}
       </tbody>
     </table>
+    </div>
       {/* <Toaster /> */}
     </div>
   );

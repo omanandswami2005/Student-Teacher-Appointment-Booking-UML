@@ -3,7 +3,7 @@ import 'flowbite';
 import  { useState, useEffect } from 'react';
 import  useAuth  from '../hooks/useAuth';
 import {checkAuthUser} from '../api/authApi';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 
 
@@ -143,7 +143,7 @@ const handleDataChange =
              <button 
               type="button" 
               onClick={togglePasswordVisibility} 
-              className="  text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 border rounded-md mt-2 p-2"
+              className="text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-300 border rounded-md mt-2 px-2 py-1 text-xs"
               disabled={data.password.length === 0}
             >
             {showPassword ? 'Hide Password' : 'Show Password'}
@@ -162,9 +162,12 @@ const handleDataChange =
         </form>
         <p className="text-center text-sm text-gray-600 dark:text-gray-400">
           Already have an account?{' '}
-          <a href="/login" className="text-indigo-600 hover:text-indigo-500 dark:text-indigo-500 dark:hover:text-indigo-400">
+          <Link
+            to="/login"
+            className="text-indigo-600 dark:text-indigo-500 hover:underline"
+          >
             Login
-          </a>
+          </Link>
         </p>
       </div>
     </div>

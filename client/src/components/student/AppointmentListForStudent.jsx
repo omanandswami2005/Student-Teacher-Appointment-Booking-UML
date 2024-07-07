@@ -104,7 +104,7 @@ const AppointmentsListForStudent = ({ IsTeacher }) => {
                   <td className="py-2 px-4 border-b">{index + 1}</td>
                   <td className="py-2 px-4 border-b">{!IsTeacher ? appointment.student.name : appointment.teacher.name}</td>
                   <td className="py-2 px-4 border-b">
-                    {new Date(appointment.date).toLocaleDateString()}
+                  {new Date(appointment.date).toISOString().slice(0, 10).split('-').reverse().join('-')}
                   </td>
                   <td className="py-2 px-4 border-b">
                     {appointment.status}

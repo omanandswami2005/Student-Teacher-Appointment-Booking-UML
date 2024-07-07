@@ -7,7 +7,7 @@ const constants = require('../constants');
 const connectDB = async () => {
   try {
     const connectionInstance = await mongoose.connect(
-      `${config.db.uri}/${constants.DB_Name}`
+      `${config.db.uri}/${constants.DB_Name}?retryWrites=true&w=majority`
     );
     console.log(
       'MongoDB connected...with host:',

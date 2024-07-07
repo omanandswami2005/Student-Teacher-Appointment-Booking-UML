@@ -13,6 +13,8 @@ import StudentManagement from './components/admin/StudentManagement';
 import VerifyEmail from './components/VerifyEmail';
 import ForgotPassword from './components/ForgotPassword';
 import ResetPassword from './components/ResetPassword';
+import LandingPage from './pages/LandingPage';
+import ContactPage from './pages/ContactPage';
 function App() {
 
 
@@ -20,6 +22,8 @@ function App() {
   return (
 
    <Routes>
+     <Route path="/" element={<LandingPage />} />
+     <Route path="/contact" element={<ContactPage />} />
  <Route path="/login" element={<Login />} />
  <Route path="/register" element={<StudentRegistration />} />
  <Route path="/verify-email" element={<VerifyEmail />} />

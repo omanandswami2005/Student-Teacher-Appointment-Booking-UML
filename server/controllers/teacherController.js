@@ -1,5 +1,4 @@
 const Appointment = require('../models/Appointment.model');
-const Message = require('../models/Message.model');
 const asyncHandler = require('../utils/asyncHandler');
 const ApiResponse = require('../utils/ApiResponse');
 const ApiError = require('../utils/ApiError');
@@ -8,7 +7,15 @@ const ApiError = require('../utils/ApiError');
 // Schedule Appointment
 exports.scheduleAppointment = asyncHandler(async (req, res) => {
   const { student, date, message } = req.body;
-  console.log(req.body);
+  // console.log(req.body);
+  
+//limit the number of Appointments
+const appintments = await Appointment.countDocuments();
+if (appintments >= 20) {
+  throw new ApiError(400, 'Sorry, The Max Number of Appointments Quota has been reached :(');
+}
+
+
   if (!student) {
     throw new ApiError(400, 'Student ID is required');
   }
@@ -18,7 +25,7 @@ exports.scheduleAppointment = asyncHandler(async (req, res) => {
   if (!message) {
     throw new ApiError(400, 'Message is required');
   }
-  const newAppointment = new Appointment({ student: student, teacher: req.user.user._id, date, message });
+  const newAppointment = new Appointment({ student: student, teacher: req.user.user._id, date, message,expireDate: new Date() });
 
   await newAppointment.save();
   res.status(201).json(new ApiResponse(201, { newAppointment }, 'Appointment scheduled successfully'));
@@ -39,11 +46,7 @@ exports.updateAppointmentStatus = asyncHandler(async (req, res) => {
   res.status(200).json(new ApiResponse(200, { updatedAppointment }, `Appointment marked as ${status} !!!`));
 });
 
-// View Messages
-exports.viewMessages = asyncHandler(async (req, res) => {
-  const messages = await Message.find({ recipient: req.user._id });
-  res.status(200).json(new ApiResponse(200, { messages }, 'Messages found successfully'));
-});
+
 
 // View All Appointments
 exports.viewAllAppointments = asyncHandler(async (req, res) => {

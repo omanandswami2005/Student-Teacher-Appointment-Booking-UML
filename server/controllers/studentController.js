@@ -1,11 +1,8 @@
 const User = require('../models/User.model');
 const Appointment = require('../models/Appointment.model');
-const Message = require('../models/Message.model');
 const asyncHandler = require('../utils/asyncHandler');
 const ApiError = require('../utils/ApiError');
 const ApiResponse = require('../utils/ApiResponse');
-const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 
 
@@ -22,6 +19,13 @@ exports.searchTeachers = asyncHandler(async (req, res) => {
 exports.bookAppointment = asyncHandler(async (req, res) => {
   const { teacher, date, message } = req.body;
 // console.log(teacher,req.user.userId,date,message)
+
+
+//limit the number of Appointments
+const appintments = await Appointment.countDocuments();
+if (appintments >= 20) {
+  throw new ApiError(400, 'Sorry, The Max Number of Appointments Quota has been reached :(');
+}
 
 if (!teacher) {
   throw new ApiError(400, 'Please select a teacher');

@@ -8,6 +8,7 @@ const UpdateTeacher = ({ isOpen, onClose, teacher, onSave, onChange }) => {
     <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-1/3">
       <h2 className="text-2xl font-bold mb-4 dark:text-gray-200">Update Teacher</h2>
       <div className="mb-4">
+        <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-gray-200">Name</label>
         <input
           type="text"
           placeholder="Name"
@@ -15,6 +16,7 @@ const UpdateTeacher = ({ isOpen, onClose, teacher, onSave, onChange }) => {
           value={teacher.name}
           onChange={(e) => onChange({ ...teacher, name: e.target.value })}
         />
+        <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-gray-200">Department</label>
         <input
           type="text"
           placeholder="Department"
@@ -22,6 +24,7 @@ const UpdateTeacher = ({ isOpen, onClose, teacher, onSave, onChange }) => {
           value={teacher.department}
           onChange={(e) => onChange({ ...teacher, department: e.target.value })}
         />
+        <label className="block text-gray-700 text-sm font-bold mb-2 dark:text-gray-200">Subject</label>
         <input
           type="text"
           placeholder="Subject"

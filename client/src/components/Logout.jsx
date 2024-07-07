@@ -17,7 +17,7 @@ async () => await logoutUser(),
 null,
 (res) => {
   console.log(res);
-  nav('/login',{replace:true});
+  nav('/',{replace:true});
 }
         )
 
