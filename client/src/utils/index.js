@@ -1,45 +1,38 @@
+import { showErrorToast } from '../utils/toastUtils';
 
+export const requestHandler = async (apiCall, setLoading, onSuccess) => {
+  setLoading && setLoading(true);
 
-import {  showErrorToast } from '../utils/toastUtils';
+  try {
+    const response = await apiCall();
+    // const { data } = response;
+    console.log(response);
+    if (response?.success) {
+      // Call the onSuccess callback with the response data
+      onSuccess(response);
+    }
+  } catch (error) {
+    console.log(error);
 
+    showErrorToast(error?.response?.data?.error || 'Something went wwwwwwrong');
+    // Handle error cases, including unauthorized and forbidden cases
 
-export const requestHandler = async (apiCall, setLoading, onSuccess, ) => {
+    if (
+      [401, 403].includes(error?.response?.status) &&
+      error?.response?.data?.error !== 'Incorrect password'
+    ) {
+      // Redirect to login page
+      showErrorToast('Please Wait,\n Redirecting to Login Page...');
+      setTimeout(() => {
+        if (isBrowser) window.location.replace('/login');
+      }, 4500);
+    }
 
-    setLoading && setLoading(true);
+    // console.log(error);
+  } finally {
+    setLoading && setLoading(false);
+  }
+};
 
-    try {
-        const response = await apiCall();
-        // const { data } = response;
-        console.log(response);
-        if (response?.success) {
-            // Call the onSuccess callback with the response data
-            onSuccess(response);
-        }
-    } catch (error) {
-console.log(error)
-
-      showErrorToast(error?.response?.data?.error || "Something went wwwwwwrong");
-        // Handle error cases, including unauthorized and forbidden cases
-        
-        if ([401,403].includes(error?.response?.status) && error?.response?.data?.error !== "Incorrect password") {
-          // Redirect to login page
-          showErrorToast("Please Wait,\n Redirecting to Login Page...");
-         setTimeout(() => {
-          if (isBrowser)  window.location.replace('/login') 
-          }, 4500);
-          
-        }
-        
-        // console.log(error); 
-        
-      }
-    finally {
-            setLoading && setLoading(false);
-        }
-    };
-
-    // Check if the code is running in a browser environment
-export const isBrowser = typeof window !== "undefined";
-
-
-
+// Check if the code is running in a browser environment
+export const isBrowser = typeof window !== 'undefined';

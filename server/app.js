@@ -16,19 +16,21 @@ const morganFormat = constants.morganFormat;
 app.use(express.json());
 
 // Middleware to enable CORS
-app.use(cors(
-  {
-    origin: 'http://localhost:5173',
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    credentials: true,
-  },
-  (err) => {
-    if (err) {
-      console.error('CORS error:', err);
+app.use(
+  cors(
+    {
+      origin: 'http://localhost:5173',
+      allowedHeaders: ['Content-Type', 'Authorization'],
+      methods: ['GET', 'POST', 'PUT', 'DELETE'],
+      credentials: true,
+    },
+    (err) => {
+      if (err) {
+        console.error('CORS error:', err);
+      }
     }
-  }
-));
+  )
+);
 
 //Middlerware to URL encode data
 app.use(express.urlencoded({ extended: true }));
@@ -38,8 +40,6 @@ app.use(cookieParser());
 app.use(bodyParser.json());
 
 app.use(express.static(path.join(__dirname, 'dist')));
-
-
 
 // Middleware to log requests
 app.use((req, res, next) => {

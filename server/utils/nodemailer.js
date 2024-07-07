@@ -11,7 +11,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 const sendVerificationEmail = (email, token, isPassword) => {
-    const htmlVerification = `<!DOCTYPE html>
+  const htmlVerification = `<!DOCTYPE html>
     <html lang="en">
     <head>
       <meta charset="UTF-8">
@@ -88,8 +88,8 @@ const sendVerificationEmail = (email, token, isPassword) => {
       </div>
     </body>
     </html>`;
-  
-    const htmlPasswordReset = `<!DOCTYPE html>
+
+  const htmlPasswordReset = `<!DOCTYPE html>
     <html lang="en">
     <head>
       <meta charset="UTF-8">
@@ -166,19 +166,18 @@ const sendVerificationEmail = (email, token, isPassword) => {
       </div>
     </body>
     </html>`;
-  
-    const htmlContent = isPassword ? htmlPasswordReset : htmlVerification;
-    const subject = isPassword ? 'Password Reset' : 'Email Verification';
-  
-    const mailOptions = {
-      from: 'omiiiswami2005@gmail.com',
-      to: email,
-      subject: subject,
-      html: htmlContent,
-    };
-  
-    return transporter.sendMail(mailOptions);
+
+  const htmlContent = isPassword ? htmlPasswordReset : htmlVerification;
+  const subject = isPassword ? 'Password Reset' : 'Email Verification';
+
+  const mailOptions = {
+    from: 'omiiiswami2005@gmail.com',
+    to: email,
+    subject: subject,
+    html: htmlContent,
   };
-  
-  module.exports = sendVerificationEmail;
-  
+
+  return transporter.sendMail(mailOptions);
+};
+
+module.exports = sendVerificationEmail;

@@ -9,7 +9,7 @@ const ApiResponse = require('../utils/ApiResponse');
 exports.resetPassword = asyncHandler(async (req, res, next) => {
   const { token, newPassword } = req.body;
 
-//   console.log(token, newPassword);
+  //   console.log(token, newPassword);
 
   // Find user by token and check if token is expired
   const user = await User.findOne({
@@ -27,5 +27,7 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
   user.resetPasswordExpiry = undefined;
   await user.save();
 
-  res.status(200).json(new ApiResponse(200, null, 'Password reset successful 🎉'));
+  res
+    .status(200)
+    .json(new ApiResponse(200, null, 'Password reset successful 🎉'));
 });

@@ -1,10 +1,10 @@
 // AuthProvider.js
-import  { createContext,  useState } from "react";
-import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
-import { loginUser, logoutUser, registerUser,  } from "../api/authApi";
-import Loader from   "../components/Loader";
-import { requestHandler } from "../utils";
+import { createContext, useState } from 'react';
+import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+import { loginUser, logoutUser, registerUser } from '../api/authApi';
+import Loader from '../components/Loader';
+import { requestHandler } from '../utils';
 import { showSuccessToast } from '../utils/toastUtils';
 
 // Create a context to manage authentication-related data and functions
@@ -27,19 +27,14 @@ const AuthProvider = ({ children }) => {
       (res) => {
         const { data } = res;
         showSuccessToast(`${res.message}\n Welcome ${data.name} !`);
-        // console.info(data); 
+        // console.info(data);
 
-        navigate(`/${data.redirectUrl}/dashboard`,{
-          replace:true,
-          
-
+        navigate(`/${data.redirectUrl}/dashboard`, {
+          replace: true,
         }); // Redirect to the chat page after successful login
-      },
-     
+      }
     );
   };
-
-  
 
   const register = async (data) => {
     await requestHandler(
@@ -47,9 +42,8 @@ const AuthProvider = ({ children }) => {
       setIsLoading,
       (res) => {
         showSuccessToast(`${res.message}`);
-        navigate("/login"); // Redirect to the login page after successful registration
-      },
-     
+        navigate('/login'); // Redirect to the login page after successful registration
+      }
     );
   };
 
@@ -58,15 +52,14 @@ const AuthProvider = ({ children }) => {
       async () => await logoutUser(),
       setIsLoading,
       () => {
-        showSuccessToast("Logged out successfully!");
-        navigate("/login"); // Redirect to the login page after successful logout
-      },
-     
+        showSuccessToast('Logged out successfully!');
+        navigate('/login'); // Redirect to the login page after successful logout
+      }
     );
   };
 
   return (
-    <AuthContext.Provider value={{ login, register, logout,  }}>
+    <AuthContext.Provider value={{ login, register, logout }}>
       {isLoading ? <Loader /> : children} {/* Display a loader while loading */}
     </AuthContext.Provider>
   );

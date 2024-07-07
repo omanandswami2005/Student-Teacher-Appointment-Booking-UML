@@ -10,10 +10,8 @@ const VerifyEmail = () => {
   const [loading, setLoading] = useState(true); // Add loading state
 
   useEffect(() => {
-
-
-    const isDark = localStorage.theme ==="dark"? true:false;
-    if(isDark) document.documentElement.classList.add('dark');
+    const isDark = localStorage.theme === 'dark' ? true : false;
+    if (isDark) document.documentElement.classList.add('dark');
     const verifyEmailToken = async () => {
       await requestHandler(
         async () => await verifyEmail(token),

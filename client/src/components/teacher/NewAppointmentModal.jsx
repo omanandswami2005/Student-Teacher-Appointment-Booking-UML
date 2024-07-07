@@ -1,20 +1,20 @@
-import { useState, } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { requestHandler } from '../../utils';
 import { showSuccessToast } from '../../utils/toastUtils';
 import { createAppointment } from '../../api/teacherApi';
 import StudentDropdownSearch from './StudentDropdownSearch';
-import {createAppointmentStd} from '../../api/studentApi'
+import { createAppointmentStd } from '../../api/studentApi';
 
+const NewAppointmentModal = ({
+  isOpen,
+  onClose,
+  onAppointmentCreated,
+  IsTeacher,
+}) => {
+  // console.log(IsTeacher)
 
-
-const NewAppointmentModal = ({ isOpen, onClose, onAppointmentCreated,IsTeacher }) => {
-
-    // console.log(IsTeacher)
-
- 
-   
   const [formData, setFormData] = useState({
     student: '',
     teacher: '',
@@ -24,8 +24,6 @@ const NewAppointmentModal = ({ isOpen, onClose, onAppointmentCreated,IsTeacher }
   });
 
   const handleChange = (e) => {
-
-    
     const { name, value } = e.target;
     setFormData({
       ...formData,
@@ -38,7 +36,10 @@ const NewAppointmentModal = ({ isOpen, onClose, onAppointmentCreated,IsTeacher }
     console.log(formData);
 
     await requestHandler(
-      async () => IsTeacher ? await createAppointmentStd(formData) : await createAppointment(formData),
+      async () =>
+        IsTeacher
+          ? await createAppointmentStd(formData)
+          : await createAppointment(formData),
       null,
       (res) => {
         console.log(res);
@@ -55,7 +56,6 @@ const NewAppointmentModal = ({ isOpen, onClose, onAppointmentCreated,IsTeacher }
       }
     );
   };
-  
 
   if (!isOpen) return null;
 
@@ -66,11 +66,19 @@ const NewAppointmentModal = ({ isOpen, onClose, onAppointmentCreated,IsTeacher }
           New Appointment
         </h2>
         <form onSubmit={handleSubmit}>
-      
-         <StudentDropdownSearch formData={formData} setFormData={setFormData} IsTeacher={IsTeacher} />
-       
+          <StudentDropdownSearch
+            formData={formData}
+            setFormData={setFormData}
+            IsTeacher={IsTeacher}
+          />
+
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="date">Date</label>
+            <label
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              htmlFor="date"
+            >
+              Date
+            </label>
             <input
               type="date"
               name="date"
@@ -82,7 +90,12 @@ const NewAppointmentModal = ({ isOpen, onClose, onAppointmentCreated,IsTeacher }
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300" htmlFor="message">Message</label>
+            <label
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
+              htmlFor="message"
+            >
+              Message
+            </label>
             <textarea
               name="message"
               id="message"
@@ -116,7 +129,7 @@ NewAppointmentModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
   onAppointmentCreated: PropTypes.func.isRequired,
-  IsTeacher: PropTypes.bool.isRequired
+  IsTeacher: PropTypes.bool.isRequired,
 };
 
 export default NewAppointmentModal;

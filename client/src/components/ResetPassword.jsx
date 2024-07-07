@@ -28,14 +28,14 @@ const ResetPassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-if(!newPassword || !confirmPassword){
-  setMessage('Please enter new password and confirm password');
-  return;
-} if(newPassword.length < 8){
-  setMessage('Password must be at least 8 characters long');
-  return;
-}   
-
+    if (!newPassword || !confirmPassword) {
+      setMessage('Please enter new password and confirm password');
+      return;
+    }
+    if (newPassword.length < 8) {
+      setMessage('Password must be at least 8 characters long');
+      return;
+    }
 
     if (newPassword !== confirmPassword) {
       setMessage('Passwords do not match');
@@ -54,7 +54,10 @@ if(!newPassword || !confirmPassword){
             </h2>
             <form className="space-y-4" onSubmit={handleSubmit}>
               <div>
-                <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700 dark:text-gray-400">
+                <label
+                  htmlFor="newPassword"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-400"
+                >
                   New Password
                 </label>
                 <input
@@ -68,7 +71,10 @@ if(!newPassword || !confirmPassword){
                 />
               </div>
               <div>
-                <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 dark:text-gray-400">
+                <label
+                  htmlFor="confirmPassword"
+                  className="block text-sm font-medium text-gray-700 dark:text-gray-400"
+                >
                   Confirm Password
                 </label>
                 <input
@@ -90,7 +96,11 @@ if(!newPassword || !confirmPassword){
                 </button>
               </div>
             </form>
-            {message && <p className="text-center text-sm text-gray-600 dark:text-gray-400">{message}</p>}
+            {message && (
+              <p className="text-center text-sm text-gray-600 dark:text-gray-400">
+                {message}
+              </p>
+            )}
           </>
         ) : (
           <>

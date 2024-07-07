@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { Button, TextInput } from 'flowbite-react';
 import { requestHandler } from '../../utils';
 import { searchTeachers } from '../../api/studentApi';
@@ -29,7 +29,10 @@ const SearchTeacher = () => {
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Search by name"
         />
-        <Button onClick={handleSearch} className="bg-blue-500 hover:bg-blue-700 text-white">
+        <Button
+          onClick={handleSearch}
+          className="bg-blue-500 hover:bg-blue-700 text-white"
+        >
           Search
         </Button>
       </div>

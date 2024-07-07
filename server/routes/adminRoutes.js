@@ -10,14 +10,14 @@ router.put('/approve/:id', authMiddleware, adminController.approveStudent);
 
 router.delete('/student/:id', authMiddleware, adminController.deleteStudent);
 
-
-router.get('/appointments', authMiddleware, adminController.viewAllAppointments);
+router.get(
+  '/appointments',
+  authMiddleware,
+  adminController.viewAllAppointments
+);
 
 router.get('/teachers', authMiddleware, adminController.viewAllTeachers);
 
-router.get('/getmonthlydata',  adminController.getMonthlyData);
-
-
-
+router.get('/getmonthlydata', adminController.getMonthlyData);
 
 module.exports = router;

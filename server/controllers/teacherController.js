@@ -3,18 +3,19 @@ const asyncHandler = require('../utils/asyncHandler');
 const ApiResponse = require('../utils/ApiResponse');
 const ApiError = require('../utils/ApiError');
 
-
 // Schedule Appointment
 exports.scheduleAppointment = asyncHandler(async (req, res) => {
   const { student, date, message } = req.body;
   // console.log(req.body);
-  
-//limit the number of Appointments
-const appintments = await Appointment.countDocuments();
-if (appintments >= 20) {
-  throw new ApiError(400, 'Sorry, The Max Number of Appointments Quota has been reached :(');
-}
 
+  //limit the number of Appointments
+  const appintments = await Appointment.countDocuments();
+  if (appintments >= 20) {
+    throw new ApiError(
+      400,
+      'Sorry, The Max Number of Appointments Quota has been reached :('
+    );
+  }
 
   if (!student) {
     throw new ApiError(400, 'Student ID is required');
@@ -25,10 +26,24 @@ if (appintments >= 20) {
   if (!message) {
     throw new ApiError(400, 'Message is required');
   }
-  const newAppointment = new Appointment({ student: student, teacher: req.user.user._id, date, message,expireDate: new Date() });
+  const newAppointment = new Appointment({
+    student: student,
+    teacher: req.user.user._id,
+    date,
+    message,
+    expireDate: new Date(),
+  });
 
   await newAppointment.save();
-  res.status(201).json(new ApiResponse(201, { newAppointment }, 'Appointment scheduled successfully'));
+  res
+    .status(201)
+    .json(
+      new ApiResponse(
+        201,
+        { newAppointment },
+        'Appointment scheduled successfully'
+      )
+    );
 });
 
 // Approve/Cancel Appointment
@@ -41,19 +56,34 @@ exports.updateAppointmentStatus = asyncHandler(async (req, res) => {
     throw new ApiError(400, 'Status is required');
   }
 
-  
-  const updatedAppointment = await Appointment.findByIdAndUpdate(id, { status }, { new: true });
-  res.status(200).json(new ApiResponse(200, { updatedAppointment }, `Appointment marked as ${status} !!!`));
+  const updatedAppointment = await Appointment.findByIdAndUpdate(
+    id,
+    { status },
+    { new: true }
+  );
+  res
+    .status(200)
+    .json(
+      new ApiResponse(
+        200,
+        { updatedAppointment },
+        `Appointment marked as ${status} !!!`
+      )
+    );
 });
-
-
 
 // View All Appointments
 exports.viewAllAppointments = asyncHandler(async (req, res) => {
-  console.log(req.user.user._id)
-  const appointments = await Appointment.find({ teacher: req.user.user._id }).populate('student');
+  console.log(req.user.user._id);
+  const appointments = await Appointment.find({
+    teacher: req.user.user._id,
+  }).populate('student');
 
   console.log(appointments);
 
-  res.status(200).json(new ApiResponse(200, { appointments }, 'Appointments found successfully'));
+  res
+    .status(200)
+    .json(
+      new ApiResponse(200, { appointments }, 'Appointments found successfully')
+    );
 });

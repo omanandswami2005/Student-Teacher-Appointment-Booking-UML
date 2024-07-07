@@ -1,5 +1,5 @@
 // src/components/AddTeacherModal.jsx
-import  { useState } from 'react';
+import { useState } from 'react';
 import PropTypes from 'prop-types';
 const AddTeacherModal = ({ isOpen, onClose, onAddTeacher }) => {
   const [name, setName] = useState('');
@@ -23,16 +23,19 @@ const AddTeacherModal = ({ isOpen, onClose, onAddTeacher }) => {
     onClose(); // Close modal after submission
   };
 
-  
   if (!isOpen) return null;
 
   return (
     <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
       <div className="bg-white dark:bg-gray-800 rounded-lg p-8 max-w-md w-full mx-4">
-        <h2 className="text-lg font-semibold mb-4 dark:text-gray-200">Add Teacher</h2>
+        <h2 className="text-lg font-semibold mb-4 dark:text-gray-200">
+          Add Teacher
+        </h2>
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Name</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Name
+            </label>
             <input
               type="text"
               value={name}
@@ -42,7 +45,9 @@ const AddTeacherModal = ({ isOpen, onClose, onAddTeacher }) => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Email</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Email
+            </label>
             <input
               type="email"
               value={email}
@@ -52,7 +57,9 @@ const AddTeacherModal = ({ isOpen, onClose, onAddTeacher }) => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Password
+            </label>
             <input
               type="password"
               value={password}
@@ -62,7 +69,9 @@ const AddTeacherModal = ({ isOpen, onClose, onAddTeacher }) => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Department</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Department
+            </label>
             <input
               type="text"
               value={department}
@@ -72,7 +81,9 @@ const AddTeacherModal = ({ isOpen, onClose, onAddTeacher }) => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Subject</label>
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+              Subject
+            </label>
             <input
               type="text"
               value={subject}

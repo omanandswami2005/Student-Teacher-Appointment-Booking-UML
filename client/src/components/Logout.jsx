@@ -1,28 +1,24 @@
 // import React from 'react';
-import  {requestHandler}  from '../utils';
-import {logoutUser} from '../api/authApi';
+import { requestHandler } from '../utils';
+import { logoutUser } from '../api/authApi';
 
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const LogoutButton = () => {
+  const nav = useNavigate();
 
-    const nav = useNavigate();
-
-    const onLogout = async () => {
-
-        //confirm logout
-    if(!window.confirm('Are you sure you want to logout?')) return
-        await requestHandler(
-async () => await logoutUser(),
-null,
-(res) => {
-  console.log(res);
-  nav('/',{replace:true});
-}
-        )
-
-        
-    }
+  const onLogout = async () => {
+    //confirm logout
+    if (!window.confirm('Are you sure you want to logout?')) return;
+    await requestHandler(
+      async () => await logoutUser(),
+      null,
+      (res) => {
+        console.log(res);
+        nav('/', { replace: true });
+      }
+    );
+  };
   return (
     <button
       onClick={onLogout}

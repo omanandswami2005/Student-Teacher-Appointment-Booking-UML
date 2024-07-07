@@ -28,7 +28,7 @@ const ForgotPassword = () => {
     }
     await makeReq();
   };
-  const site =import.meta.env.VITE_SITE_KEY
+  const site = import.meta.env.VITE_SITE_KEY;
 
   const handleCaptchaChange = (token) => {
     setCaptchaToken(token);
@@ -42,7 +42,10 @@ const ForgotPassword = () => {
         </h2>
         <form className="space-y-4" onSubmit={handleSubmit}>
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-400">
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-400"
+            >
               Email address
             </label>
             <input
@@ -56,10 +59,7 @@ const ForgotPassword = () => {
             />
           </div>
           <div>
-          <ReCAPTCHA
-    sitekey={site}
-    onChange={handleCaptchaChange}
-  />
+            <ReCAPTCHA sitekey={site} onChange={handleCaptchaChange} />
           </div>
           <div>
             <button
@@ -70,7 +70,11 @@ const ForgotPassword = () => {
             </button>
           </div>
         </form>
-        {message && <p className="text-center text-sm text-gray-600 dark:text-gray-400">{message}</p>}
+        {message && (
+          <p className="text-center text-sm text-gray-600 dark:text-gray-400">
+            {message}
+          </p>
+        )}
       </div>
     </div>
   );

@@ -18,7 +18,6 @@ ReactDOM.createRoot(document.getElementById('root')).render(
       toastOptions={{
         duration: 4000,
         style: {
-          
           fontWeight: 'bold',
           fontSize: '1.5rem',
           fontFamily: 'times new roman',

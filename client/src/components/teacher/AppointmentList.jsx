@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react';
 import { requestHandler } from '../../utils';
 import { showSuccessToast } from '../../utils/toastUtils';
-import { getAllAppointments, updateAppointmentStatus } from '../../api/teacherApi';
+import {
+  getAllAppointments,
+  updateAppointmentStatus,
+} from '../../api/teacherApi';
 import NewAppointmentModal from './NewAppointmentModal';
 import { Button } from 'flowbite-react';
 import PropType from 'prop-types';
@@ -61,10 +64,13 @@ const AppointmentsList = ({ IsTeacher }) => {
   const handleFilterChange = (e) => {
     setStatusFilter(e.target.value);
   };
-console.log(appointments);
-  const filteredAppointments = appointments.filter((appointment) =>
-    appointment.student.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-    (statusFilter === '' || appointment.status === statusFilter)
+  console.log(appointments);
+  const filteredAppointments = appointments.filter(
+    (appointment) =>
+      appointment.student.name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase()) &&
+      (statusFilter === '' || appointment.status === statusFilter)
   );
 
   return (
@@ -114,14 +120,23 @@ console.log(appointments);
               {filteredAppointments.map((appointment, index) => (
                 <tr key={appointment._id}>
                   <td className="py-2 px-4 border-b">{index + 1}</td>
-                  <td className="py-2 px-4 border-b">{appointment.student.name}</td>
                   <td className="py-2 px-4 border-b">
-                  {new Date(appointment.date).toISOString().slice(0, 10).split('-').reverse().join('-')}
+                    {appointment.student.name}
+                  </td>
+                  <td className="py-2 px-4 border-b">
+                    {new Date(appointment.date)
+                      .toISOString()
+                      .slice(0, 10)
+                      .split('-')
+                      .reverse()
+                      .join('-')}
                   </td>
                   <td className="py-2 px-4 border-b">
                     <select
                       value={appointment.status}
-                      onChange={(e) => handleStatusChange(appointment._id, e.target.value)}
+                      onChange={(e) =>
+                        handleStatusChange(appointment._id, e.target.value)
+                      }
                       className="bg-white border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                     >
                       {statusOptions.map((status) => (
@@ -132,7 +147,9 @@ console.log(appointments);
                     </select>
                   </td>
                   <td className="py-2 px-4 border-b w-1/4">
-                    <div className="whitespace-normal break-words">{appointment.message}</div>
+                    <div className="whitespace-normal break-words">
+                      {appointment.message}
+                    </div>
                   </td>
                 </tr>
               ))}

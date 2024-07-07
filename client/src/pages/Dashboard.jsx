@@ -14,7 +14,6 @@ const Dashboard = () => {
       <Charts />
 
       <Footer />
-
     </div>
   );
 };

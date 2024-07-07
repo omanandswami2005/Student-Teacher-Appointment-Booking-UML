@@ -36,8 +36,6 @@ const AppointmentsListForStudent = ({ IsTeacher }) => {
     );
   };
 
-  
-
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -46,13 +44,18 @@ const AppointmentsListForStudent = ({ IsTeacher }) => {
     setStatusFilter(e.target.value);
   };
 
-//   console.log(appointments);
+  //   console.log(appointments);
 
-  const filteredAppointments = appointments.filter((appointment) => !IsTeacher ? 
-  appointment.student.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-  (statusFilter === '' || appointment.status === statusFilter) : 
-  appointment.teacher.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-  (statusFilter === '' || appointment.status === statusFilter)
+  const filteredAppointments = appointments.filter((appointment) =>
+    !IsTeacher
+      ? appointment.student.name
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase()) &&
+        (statusFilter === '' || appointment.status === statusFilter)
+      : appointment.teacher.name
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase()) &&
+        (statusFilter === '' || appointment.status === statusFilter)
   );
 
   return (
@@ -68,7 +71,9 @@ const AppointmentsListForStudent = ({ IsTeacher }) => {
         <div className="flex justify-between mb-4">
           <input
             type="text"
-            placeholder={!IsTeacher ? 'Search by student name' : 'Search by teacher name'}
+            placeholder={
+              !IsTeacher ? 'Search by student name' : 'Search by teacher name'
+            }
             value={searchTerm}
             onChange={handleSearchChange}
             className="p-2 border rounded-md  dark:bg-gray-700 dark:text-white"
@@ -92,7 +97,9 @@ const AppointmentsListForStudent = ({ IsTeacher }) => {
             <thead>
               <tr>
                 <th className="py-2 px-4 border-b">Sr. No</th>
-                <th className="py-2 px-4 border-b">{!IsTeacher ? 'Student Name' : 'Teacher Name'}</th>
+                <th className="py-2 px-4 border-b">
+                  {!IsTeacher ? 'Student Name' : 'Teacher Name'}
+                </th>
                 <th className="py-2 px-4 border-b">Date</th>
                 <th className="py-2 px-4 border-b">Appointment Status</th>
                 <th className="py-2 px-4 border-b">Message</th>
@@ -102,15 +109,24 @@ const AppointmentsListForStudent = ({ IsTeacher }) => {
               {filteredAppointments.map((appointment, index) => (
                 <tr key={appointment._id}>
                   <td className="py-2 px-4 border-b">{index + 1}</td>
-                  <td className="py-2 px-4 border-b">{!IsTeacher ? appointment.student.name : appointment.teacher.name}</td>
                   <td className="py-2 px-4 border-b">
-                  {new Date(appointment.date).toISOString().slice(0, 10).split('-').reverse().join('-')}
+                    {!IsTeacher
+                      ? appointment.student.name
+                      : appointment.teacher.name}
                   </td>
                   <td className="py-2 px-4 border-b">
-                    {appointment.status}
+                    {new Date(appointment.date)
+                      .toISOString()
+                      .slice(0, 10)
+                      .split('-')
+                      .reverse()
+                      .join('-')}
                   </td>
+                  <td className="py-2 px-4 border-b">{appointment.status}</td>
                   <td className="py-2 px-4 border-b w-1/4">
-                    <div className="whitespace-normal break-words">{appointment.message}</div>
+                    <div className="whitespace-normal break-words">
+                      {appointment.message}
+                    </div>
                   </td>
                 </tr>
               ))}

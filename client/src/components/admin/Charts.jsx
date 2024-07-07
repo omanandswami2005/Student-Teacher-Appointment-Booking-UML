@@ -10,7 +10,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
-import { Line,  } from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 
 ChartJS.register(
   CategoryScale,
@@ -27,14 +27,10 @@ import { useEffect, useState } from 'react';
 import { requestHandler } from '../../utils';
 import { getMonthlyData } from '../../api/adminApi';
 
-
-
 const Charts = () => {
-
-const  [appointmentData, setAppointmentData] = useState({});
+  const [appointmentData, setAppointmentData] = useState({});
 
   useEffect(() => {
-
     setAppointmentData({});
     async function getAppointmentData() {
       await requestHandler(
@@ -42,17 +38,14 @@ const  [appointmentData, setAppointmentData] = useState({});
         null,
         (res) => {
           const { data } = res;
-        //   console.log(data);
+          //   console.log(data);
           const { appointmentData } = data;
           setAppointmentData(appointmentData);
         }
       );
     }
     getAppointmentData();
-
-
-  }, [ ]);
-
+  }, []);
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -60,12 +53,14 @@ const  [appointmentData, setAppointmentData] = useState({});
         <h3 className="text-xl font-semibold mb-4 dark:text-gray-200">
           Appointment Trends
         </h3>
-        {appointmentData && appointmentData.labels && appointmentData.datasets ? (
+        {appointmentData &&
+        appointmentData.labels &&
+        appointmentData.datasets ? (
           <Line data={appointmentData} />
         ) : (
           <p className="dark:text-gray-200">Loading...</p>
-        )}   
-        </div>
+        )}
+      </div>
     </div>
   );
 };

@@ -2,12 +2,10 @@ const app = require('./app');
 const connectDB = require('./db');
 const asyncHandler = require('./utils/asyncHandler');
 
-
 const authRoutes = require('./routes/authRoutes');
 const protectedRoutes = require('./routes/protectedRoutes');
 
 const errorHandler = require('./middlewares/errorHandler');
-
 
 const PORT = process.env.PORT || 8000;
 connectDB()
@@ -60,7 +58,6 @@ app.use('/api/auth', authRoutes);
 
 // Protected routes
 app.use('/api', protectedRoutes);
-
 
 // Middleware to handle errors
 app.use(errorHandler);

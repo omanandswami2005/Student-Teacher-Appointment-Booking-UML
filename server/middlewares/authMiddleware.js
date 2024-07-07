@@ -15,7 +15,7 @@ async function authMiddleware(req, res, next) {
 
   try {
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = {...decoded};
+    req.user = { ...decoded };
     next(); // User is authenticated, allow access
   } catch (error) {
     logger.error('Token verification failed:', error);
@@ -23,4 +23,4 @@ async function authMiddleware(req, res, next) {
   }
 }
 
-module.exports =  authMiddleware;
+module.exports = authMiddleware;
