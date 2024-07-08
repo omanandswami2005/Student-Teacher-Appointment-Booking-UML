@@ -8,7 +8,7 @@ const axios = require('axios');
 
 /**
  * Verifies the CAPTCHA token with Google's reCAPTCHA API.
- * 
+ *
  * @param {string} token - The CAPTCHA token to verify.
  * @returns {Promise<boolean>} - Returns true if CAPTCHA is valid, otherwise false.
  */
@@ -21,7 +21,7 @@ const verifyCaptcha = async (token) => {
 
 /**
  * Handles the forgot password functionality.
- * 
+ *
  * @param {Object} req - Express request object.
  * @param {Object} res - Express response object.
  * @param {Function} next - Express next middleware function.

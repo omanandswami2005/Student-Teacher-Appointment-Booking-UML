@@ -107,4 +107,3 @@ exports.viewAllAppointments = asyncHandler(async (req, res) => {
       new ApiResponse(200, { appointments }, 'Appointments found successfully')
     );
 });
-

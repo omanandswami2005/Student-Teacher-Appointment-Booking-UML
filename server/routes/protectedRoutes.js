@@ -67,4 +67,3 @@ router.use('/admin', authMiddleware, authorizeRoles('admin'), adminRoutes);
 router.use('/common', authMiddleware, commonRoutes);
 
 module.exports = router;
-

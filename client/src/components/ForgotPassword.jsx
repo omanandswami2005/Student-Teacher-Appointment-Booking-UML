@@ -6,7 +6,7 @@ import ReCAPTCHA from 'react-google-recaptcha';
 
 /**
  * Component for forgot password functionality.
- * 
+ *
  * @returns {JSX.Element} The ForgotPassword component.
  */
 const ForgotPassword = () => {
@@ -16,14 +16,15 @@ const ForgotPassword = () => {
 
   /**
    * Sends a request to the server to handle the forgot password functionality.
-   * 
+   *
    * @returns {Promise<void>} A promise that resolves when the request completes.
    */
   const makeReq = async () => {
     await requestHandler(
       async () => await forgotPassword(email, captchaToken), // Function to send the request
       null, // No data to pass
-      (res) => { // Callback function to handle the response
+      (res) => {
+        // Callback function to handle the response
         setMessage(res.message); // Update the message state with the response message
         showSuccessToast(`${res.message}`); // Show a success toast with the response message
       }
@@ -32,13 +33,14 @@ const ForgotPassword = () => {
 
   /**
    * Handles the form submission event.
-   * 
+   *
    * @param {React.FormEvent<HTMLFormElement>} e - The form submission event.
    * @returns {Promise<void>} A promise that resolves when the request completes.
    */
   const handleSubmit = async (e) => {
     e.preventDefault(); // Prevent the form from reloading the page
-    if (!captchaToken) { // If no reCAPTCHA token, show an error message
+    if (!captchaToken) {
+      // If no reCAPTCHA token, show an error message
       setMessage('Please complete the CAPTCHA.');
       return;
     }
@@ -49,7 +51,7 @@ const ForgotPassword = () => {
 
   /**
    * Handles the change event for the reCAPTCHA token.
-   * 
+   *
    * @param {string} token - The new reCAPTCHA token.
    */
   const handleCaptchaChange = (token) => {

@@ -15,7 +15,6 @@ const AuthContext = createContext({
   logout: async () => {},
 });
 
-
 /**
  * Creates an AuthProvider component that provides authentication-related data and functions.
  *
@@ -27,12 +26,12 @@ const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-    /**
-     * Asynchronously logs in a user with the provided data.
-     *
-     * @param {Object} data - The data required for user login.
-     * @return {Promise<void>} A promise that resolves when the login is successful.
-     */
+  /**
+   * Asynchronously logs in a user with the provided data.
+   *
+   * @param {Object} data - The data required for user login.
+   * @return {Promise<void>} A promise that resolves when the login is successful.
+   */
   const login = async (data) => {
     await requestHandler(
       async () => await loginUser(data),

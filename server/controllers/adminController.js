@@ -201,13 +201,17 @@ exports.viewAllAppointments = asyncHandler(async (req, res) => {
   res
     .status(200)
     .json(
-      new ApiResponse(200, { appointments: appointmentsList }, 'Appointments found successfully')
+      new ApiResponse(
+        200,
+        { appointments: appointmentsList },
+        'Appointments found successfully'
+      )
     );
 });
 
 /**
  * Get counts of various entities and statuses in the system.
- * 
+ *
  * @param {Object} req - Express request object.
  * @param {Object} res - Express response object.
  */

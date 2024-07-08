@@ -80,4 +80,3 @@ router.post(
 router.get('/appointments', teacherController.viewAllAppointments);
 
 module.exports = router;
-

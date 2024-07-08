@@ -49,7 +49,9 @@ export const checkAuthUser = async () => {
  * @returns {Promise<Object>} The response data.
  */
 export const verifyEmail = async (token) => {
-  const response = await axiosInstance.get(`/api/auth/verify-email?token=${token}`);
+  const response = await axiosInstance.get(
+    `/api/auth/verify-email?token=${token}`
+  );
   return response.data;
 };
 

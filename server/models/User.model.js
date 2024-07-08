@@ -88,4 +88,3 @@ UserSchema.methods.isPasswordCorrect = async function (password) {
 };
 
 module.exports = mongoose.model('User', UserSchema);
-

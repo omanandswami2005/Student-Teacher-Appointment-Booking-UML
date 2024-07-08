@@ -3,8 +3,6 @@ const router = express.Router();
 const adminController = require('../controllers/adminController');
 const authMiddleware = require('../middlewares/authMiddleware');
 
-
-
 /**
  * Routes for admin functionalities
  * @module adminRoutes
@@ -24,11 +22,7 @@ const authMiddleware = require('../middlewares/authMiddleware');
  * @returns {Object} 401 - If not authenticated
  * @returns {Object} 422 - If any of the required fields are missing
  */
-router.post(
-  '/teacher',
-  authMiddleware,
-  adminController.addTeacher
-);
+router.post('/teacher', authMiddleware, adminController.addTeacher);
 
 /**
  * Route for updating a teacher's details
@@ -42,11 +36,7 @@ router.post(
  * @returns {Object} 404 - If the teacher does not exist
  * @returns {Object} 422 - If any of the required fields are missing
  */
-router.put(
-  '/teacher/:id',
-  authMiddleware,
-  adminController.updateTeacher
-);
+router.put('/teacher/:id', authMiddleware, adminController.updateTeacher);
 
 /**
  * Route for deleting a teacher from the system
@@ -56,11 +46,7 @@ router.put(
  * @returns {Object} 401 - If not authenticated
  * @returns {Object} 404 - If the teacher does not exist
  */
-router.delete(
-  '/teacher/:id',
-  authMiddleware,
-  adminController.deleteTeacher
-);
+router.delete('/teacher/:id', authMiddleware, adminController.deleteTeacher);
 
 /**
  * Route for approving a student's request to join the system
@@ -70,11 +56,7 @@ router.delete(
  * @returns {Object} 401 - If not authenticated
  * @returns {Object} 404 - If the student does not exist
  */
-router.put(
-  '/approve/:id',
-  authMiddleware,
-  adminController.approveStudent
-);
+router.put('/approve/:id', authMiddleware, adminController.approveStudent);
 
 /**
  * Route for deleting a student from the system
@@ -84,15 +66,8 @@ router.put(
  * @returns {Object} 401 - If not authenticated
  * @returns {Object} 404 - If the student does not exist
  */
-router.delete(
-  '/student/:id',
-  authMiddleware,
-  adminController.deleteStudent
-);
+router.delete('/student/:id', authMiddleware, adminController.deleteStudent);
 
-router.get(
-  '/getmonthlydata',
-  authMiddleware,
-  adminController.getMonthlyData)
+router.get('/getmonthlydata', authMiddleware, adminController.getMonthlyData);
 
 module.exports = router;

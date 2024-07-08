@@ -12,7 +12,7 @@ const logger = require('../utils/logger');
 
 /**
  * Check if the user is authenticated.
- * 
+ *
  * @param {Object} req - Express request object.
  * @param {Object} res - Express response object.
  */
@@ -26,7 +26,7 @@ exports.checkAuth = asyncHandler(async (req, res) => {
 
 /**
  * Register a new user (student) in the system.
- * 
+ *
  * @param {Object} req - Express request object.
  * @param {Object} res - Express response object.
  * @throws {ApiError} If the student quota has been reached.
@@ -79,7 +79,7 @@ exports.register = asyncHandler(async (req, res) => {
 
 /**
  * Log in an existing user.
- * 
+ *
  * @param {Object} req - Express request object.
  * @param {Object} res - Express response object.
  * @throws {ApiError} If the user is not found, the password is incorrect, the email is not verified, or the user is not approved.
@@ -125,7 +125,7 @@ exports.login = asyncHandler(async (req, res) => {
 
 /**
  * Log out the current user.
- * 
+ *
  * @param {Object} req - Express request object.
  * @param {Object} res - Express response object.
  */
@@ -137,7 +137,7 @@ exports.logout = asyncHandler(async (req, res) => {
 
 /**
  * Check if the user is logged in.
- * 
+ *
  * @param {Object} req - Express request object.
  * @param {Object} res - Express response object.
  */
@@ -147,7 +147,7 @@ exports.isLoggedIn = asyncHandler(async (req, res) => {
 
 /**
  * Verify a user's email using a verification token.
- * 
+ *
  * @param {Object} req - Express request object.
  * @param {Object} res - Express response object.
  * @throws {ApiError} If the user is not found or the verification token has expired.

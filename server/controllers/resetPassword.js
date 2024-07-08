@@ -8,8 +8,6 @@ const { config } = require('dotenv').config();
 const ApiError = require('../utils/ApiError');
 const ApiResponse = require('../utils/ApiResponse');
 
-
-
 /**
  * Reset the password of a user.
  *
@@ -42,4 +40,3 @@ exports.resetPassword = asyncHandler(async (req, res, next) => {
     .status(200)
     .json(new ApiResponse(200, null, 'Password reset successful 🎉'));
 });
-

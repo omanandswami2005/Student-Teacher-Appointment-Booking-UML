@@ -60,4 +60,3 @@ const init = () => {
 
 // Initialize the server
 init();
-

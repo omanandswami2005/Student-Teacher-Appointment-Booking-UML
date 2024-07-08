@@ -16,7 +16,6 @@ const logger = createLogger({
     new transports.Console({
       format: consoleLogFormat,
     }),
-
   ],
 });
 

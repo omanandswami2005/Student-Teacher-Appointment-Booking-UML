@@ -60,14 +60,14 @@ const Login = () => {
     navigate('/register', { replace: true });
   };
 
-/**
- * Updates the state of the data object by setting the value of the specified
- * property to the value of the input element.
- *
- * @param {string} name - The name of the property to update.
- * @param {Event} e - The event object containing the input element.
- * @return {void}
- */
+  /**
+   * Updates the state of the data object by setting the value of the specified
+   * property to the value of the input element.
+   *
+   * @param {string} name - The name of the property to update.
+   * @param {Event} e - The event object containing the input element.
+   * @return {void}
+   */
   const handleDataChange = (name) => (e) => {
     setData({
       ...data,
@@ -75,11 +75,11 @@ const Login = () => {
     });
   };
 
-/**
- * Handles the login process.
- *
- * @return {Promise<void>} A promise that resolves when the login process is complete.
- */
+  /**
+   * Handles the login process.
+   *
+   * @return {Promise<void>} A promise that resolves when the login process is complete.
+   */
   const handleLogin = async () => {
     if (!data.email || !data.password) {
       showErrorToast('Please fill in all fields');

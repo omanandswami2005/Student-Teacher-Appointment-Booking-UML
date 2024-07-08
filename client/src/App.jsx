@@ -17,7 +17,7 @@ import NotFound from './pages/NotFound';
 
 /**
  * Main application component that defines the routing structure.
- * 
+ *
  * The `App` component uses `react-router-dom` to define routes for different
  * pages and components within the application. It includes both public routes
  * and private routes which are protected based on user roles.

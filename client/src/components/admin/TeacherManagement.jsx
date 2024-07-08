@@ -46,7 +46,6 @@ const TeacherManagement = () => {
       async () => await addTeacher(teacher),
       null,
       (res) => {
-       
         setAllTeachers();
         toast.success(`${res.message}`);
       }

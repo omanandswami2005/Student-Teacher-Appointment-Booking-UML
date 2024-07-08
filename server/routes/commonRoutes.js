@@ -50,4 +50,3 @@ router.get('/teachers', adminController.viewAllTeachers);
 router.get('/', (req, res) => res.send('Default route'));
 
 module.exports = router;
-

@@ -5,7 +5,7 @@ import { verifyEmail } from '../api/authApi';
 
 /**
  * Component for verifying a user's email using a token.
- * 
+ *
  * @returns {JSX.Element} The VerifyEmail component.
  */
 const VerifyEmail = () => {
@@ -19,7 +19,7 @@ const VerifyEmail = () => {
     if (isDark) document.documentElement.classList.add('dark');
     /**
      * Verifies the user's email using the provided token.
-     * 
+     *
      * @returns {Promise<void>} A promise that resolves when the email is verified.
      */
     const verifyEmailToken = async () => {
