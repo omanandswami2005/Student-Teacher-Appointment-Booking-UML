@@ -90,4 +90,9 @@ router.delete(
   adminController.deleteStudent
 );
 
+router.get(
+  '/getmonthlydata',
+  authMiddleware,
+  adminController.getMonthlyData)
+
 module.exports = router;

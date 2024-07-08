@@ -8,7 +8,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'https://stabs.onrender.com',
+        target: 'https://stabsbackend.onrender.com',
         changeOrigin: true,
       }
     }
