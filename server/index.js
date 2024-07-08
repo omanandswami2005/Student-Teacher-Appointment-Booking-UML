@@ -40,10 +40,9 @@ const startServer = async () => {
  * @return {void}
  */
 const init = () => {
-  // Sample route to demonstrate error handling
-  app.get('/', (req, res) => {
-    res.send('Hello, World!');
-  });
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
+    });
 
   // Public routes
   app.use('/api/auth', authRoutes);

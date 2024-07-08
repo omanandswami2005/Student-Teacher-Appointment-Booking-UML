@@ -37,6 +37,14 @@ app.use(
 );
 
 /**
+ * Serve static files from the 'dist' directory.
+ */
+
+app.use(express.static(path.join(__dirname, '/public/dist/')));
+
+
+
+/**
  * Parses incoming requests with URL-encoded payloads.
  */
 app.use(express.urlencoded({ extended: true }));
