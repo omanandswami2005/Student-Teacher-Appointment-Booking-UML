@@ -6,8 +6,6 @@ export default defineConfig({
   
   plugins: [react()],
   build: {
-    outDir: '../server/public',
-
     rollupOptions: {
       input: {
         main: '/src/main.jsx',
