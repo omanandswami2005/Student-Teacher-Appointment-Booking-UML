@@ -1,3 +1,15 @@
+const User = require('../models/User.model');
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+const sendVerificationEmail = require('../utils/nodemailer');
+const crypto = require('crypto');
+const asyncHandler = require('../utils/asyncHandler');
+const { config } = require('dotenv').config();
+const ApiError = require('../utils/ApiError');
+const ApiResponse = require('../utils/ApiResponse');
+
+
+
 /**
  * Reset the password of a user.
  *

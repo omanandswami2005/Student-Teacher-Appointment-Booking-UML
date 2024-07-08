@@ -1,3 +1,8 @@
+const mongoose = require('mongoose');
+const config = require('../config/config');
+const constants = require('../constants');
+
+
 /**
  * Connects to the MongoDB database.
  *
