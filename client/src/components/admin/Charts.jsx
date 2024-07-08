@@ -26,10 +26,21 @@ ChartJS.register(
 import { useEffect, useState } from 'react';
 import { requestHandler } from '../../utils';
 import { getMonthlyData } from '../../api/adminApi';
-
+/**
+ * Renders charts displaying appointment trends.
+ *
+ * @return {JSX.Element} The rendered charts.
+ */
 const Charts = () => {
+  /**
+   * The appointment data, used to display charts.
+   * @type {Object}
+   */
   const [appointmentData, setAppointmentData] = useState({});
 
+  /**
+   * Fetches the appointment data from the server.
+   */
   useEffect(() => {
     setAppointmentData({});
     async function getAppointmentData() {
@@ -38,7 +49,6 @@ const Charts = () => {
         null,
         (res) => {
           const { data } = res;
-          //   console.log(data);
           const { appointmentData } = data;
           setAppointmentData(appointmentData);
         }

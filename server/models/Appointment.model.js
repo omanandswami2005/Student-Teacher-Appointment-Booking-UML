@@ -1,3 +1,18 @@
+/**
+ * Represents an appointment between a student and a teacher.
+ *
+ * @property {ObjectId} student - The ID of the student
+ * @property {ObjectId} teacher - The ID of the teacher
+ * @property {Date} date - The date of the appointment
+ * @property {Date} expireAt - The date when the appointment expires
+ * @property {String} message - A message for the appointment
+ * @property {String} status - The status of the appointment
+ * @property {String[]} status.enum - The possible values of the status field
+ * @property {String} status.default - The default value of the status field
+ *
+ * @mongooseModel Appointment
+ */
+
 const mongoose = require('mongoose');
 
 const AppointmentSchema = new mongoose.Schema({
@@ -14,3 +29,4 @@ const AppointmentSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Appointment', AppointmentSchema);
+

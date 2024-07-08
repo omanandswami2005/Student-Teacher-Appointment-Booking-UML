@@ -19,7 +19,7 @@ const PrivateRoute = ({ role }) => {
         // console.log(res.data.user.role);
         setUserRole(res.data.user.role);
         if (res.role === role) {
-          console.log(res.data.user.role);
+          // console.log(res.data.user.role);
           setIsAuthenticated(true);
         } else {
           setIsAuthenticated(false);
@@ -79,7 +79,7 @@ const PrivateRoute = ({ role }) => {
   }
 
   if (userRole !== role) {
-    console.log('.............');
+    // console.log('.............');
     return <Navigate to={`/${userRole}/dashboard`} replace />;
   }
 

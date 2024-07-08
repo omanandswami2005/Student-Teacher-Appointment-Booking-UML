@@ -9,6 +9,11 @@ import { Link } from 'react-router-dom';
 import DarkToggler from '../components/DarkToggler';
 import Footer from '../components/Footer';
 
+/**
+ * Renders the ContactPage component with social media links.
+ *
+ * @return {JSX.Element} The ContactPage component JSX
+ */
 const ContactPage = () => {
   return (
     <div>

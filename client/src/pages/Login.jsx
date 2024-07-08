@@ -5,6 +5,11 @@ import { checkAuthUser } from '../api/authApi';
 import { useNavigate } from 'react-router-dom';
 import { showErrorToast } from '../utils/toastUtils';
 
+/**
+ * Renders the Login component, which allows users to log in to the application.
+ *
+ * @return {JSX.Element} The rendered Login component.
+ */
 const Login = () => {
   const { login } = useAuth();
 
@@ -13,18 +18,23 @@ const Login = () => {
   useEffect(() => {
     const isDark = localStorage.theme === 'dark' ? true : false;
     if (isDark) document.documentElement.classList.add('dark');
+    /**
+     * Asynchronously attempts to log in the user automatically.
+     *
+     * @return {Promise<void>} A promise that resolves after attempting auto-login.
+     */
     const autoLogin = async () => {
       try {
         const res = await checkAuthUser();
         const { data } = res;
-        console.log(data, res);
+        // console.log(data, res);
         if (res.success) {
           navigate(`/${data.user.redirectUrl || data.user.role}/dashboard`, {
             replace: true,
           });
         }
       } catch (error) {
-        console.log(error);
+        // console.log(error);
       }
     };
     autoLogin();
@@ -41,11 +51,23 @@ const Login = () => {
     setShowPassword(!showPassword);
   };
 
+  /**
+   * Navigates to the '/register' route with replacement.
+   *
+   * @return {void} No return value.
+   */
   const nav = () => {
     navigate('/register', { replace: true });
   };
 
-  // Function to update state when input data change
+/**
+ * Updates the state of the data object by setting the value of the specified
+ * property to the value of the input element.
+ *
+ * @param {string} name - The name of the property to update.
+ * @param {Event} e - The event object containing the input element.
+ * @return {void}
+ */
   const handleDataChange = (name) => (e) => {
     setData({
       ...data,
@@ -53,7 +75,11 @@ const Login = () => {
     });
   };
 
-  // Function to handle the login process
+/**
+ * Handles the login process.
+ *
+ * @return {Promise<void>} A promise that resolves when the login process is complete.
+ */
   const handleLogin = async () => {
     if (!data.email || !data.password) {
       showErrorToast('Please fill in all fields');

@@ -1,9 +1,9 @@
-// db.js
-
-const mongoose = require('mongoose');
-const config = require('../config/config');
-const constants = require('../constants');
-
+/**
+ * Connects to the MongoDB database.
+ *
+ * @return {Promise<void>} Promise that resolves when the connection is established.
+ * @throws {Error} Throws an error if there is an issue connecting to the database.
+ */
 const connectDB = async () => {
   try {
     const connectionInstance = await mongoose.connect(
@@ -20,3 +20,4 @@ const connectDB = async () => {
 };
 
 module.exports = connectDB;
+

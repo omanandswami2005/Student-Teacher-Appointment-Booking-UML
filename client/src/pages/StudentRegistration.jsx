@@ -4,14 +4,32 @@ import { useState, useEffect } from 'react';
 import useAuth from '../hooks/useAuth';
 import { checkAuthUser } from '../api/authApi';
 import { useNavigate, Link } from 'react-router-dom';
-
+/**
+ * Renders the StudentRegistration component, which allows students to register for an account.
+ *
+ * @return {JSX.Element} The rendered StudentRegistration component.
+ */
 const StudentRegistration = () => {
+  /**
+   * The `register` function from the `useAuth` hook, used to register a new user.
+   */
   const { register } = useAuth();
 
+  /**
+   * The `useNavigate` hook from `react-router-dom`, used to navigate to other pages.
+   */
   const navigate = useNavigate();
 
-  const [errors, setErrors] = useState({}); // State for validation errors
+  /**
+   * State to manage validation errors.
+   */
+  const [errors, setErrors] = useState({});
 
+  /**
+   * Asynchronously attempts to automatically log in the user if they are already authenticated.
+   *
+   * @return {Promise<void>} A promise that resolves after attempting auto-login.
+   */
   useEffect(() => {
     const isDark = localStorage.theme === 'dark' ? true : false;
     if (isDark) document.documentElement.classList.add('dark');
@@ -32,16 +50,36 @@ const StudentRegistration = () => {
     autoLogin();
   }, [navigate]);
 
+  /**
+   * State to manage the form data.
+   */
   const [data, setData] = useState({
     name: '',
     email: '',
     password: '',
   });
+
+  /**
+   * State to manage the visibility of the password field.
+   */
   const [showPassword, setShowPassword] = useState(false);
+
+  /**
+   * Toggles the visibility of the password field.
+   *
+   * @return {void} No return value.
+   */
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
+  /**
+   * Updates the form data based on user input.
+   *
+   * @param {string} name - The name of the form field.
+   * @param {Event} e - The event object from the form input change.
+   * @return {void} No return value.
+   */
   const handleDataChange = (name) => (e) => {
     setData({
       ...data,
@@ -49,6 +87,12 @@ const StudentRegistration = () => {
     });
   };
 
+  /**
+   * Handles the form submission.
+   *
+   * @param {Event} event - The event object from the form submission.
+   * @return {Promise<void>} A promise that resolves after handling the form submission.
+   */
   const handleRegister = async (event) => {
     event.preventDefault(); // Prevent default form submission
 
@@ -63,6 +107,12 @@ const StudentRegistration = () => {
     }
   };
 
+  /**
+   * Validates the form data.
+   *
+   * @param {object} data - The form data.
+   * @return {object} An object containing any validation errors.
+   */
   const validateForm = (data) => {
     const errors = {};
     // Validation rules

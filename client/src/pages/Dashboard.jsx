@@ -4,6 +4,11 @@ import Charts from '../components/admin/Charts';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
+/**
+ * Renders the Dashboard component.
+ *
+ * @return {JSX.Element} The rendered Dashboard component.
+ */
 const Dashboard = () => {
   return (
     <div className="container mx-auto p-1">

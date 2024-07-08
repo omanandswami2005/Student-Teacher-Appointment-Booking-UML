@@ -1,5 +1,9 @@
-// app.js
+/**
+ * The main Express application.
+ * @module app
+ */
 
+// Modules
 const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
@@ -9,45 +13,55 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
+// Express app
 const app = express();
 const morganFormat = constants.morganFormat;
 
-// Middleware to parse JSON requests
+// Middleware
+
+/**
+ * Parses incoming requests with JSON payloads.
+ */
 app.use(express.json());
 
-// Middleware to enable CORS
+/**
+ * Enable Cross-Origin Resource Sharing.
+ */
 app.use(
-  cors(
-    {
-      origin: 'http://localhost:5173',
-      allowedHeaders: ['Content-Type', 'Authorization'],
-      methods: ['GET', 'POST', 'PUT', 'DELETE'],
-      credentials: true,
-    },
-    (err) => {
-      if (err) {
-        console.error('CORS error:', err);
-      }
-    }
-  )
+  cors({
+    origin: 'stabs.onrender.com',
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    credentials: true,
+  })
 );
 
-//Middlerware to URL encode data
+/**
+ * Parses incoming requests with URL-encoded payloads.
+ */
 app.use(express.urlencoded({ extended: true }));
 
+/**
+ * Parses cookies from the request.
+ */
 app.use(cookieParser());
 
+/**
+ * Parses JSON payloads in the request.
+ */
 app.use(bodyParser.json());
 
-app.use(express.static(path.join(__dirname, 'dist')));
-
-// Middleware to log requests
+/**
+ * Middleware to log requests.
+ */
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
   next();
 });
 
-// Middleware to Morgan logger
+/**
+ * Middleware to Morgan logger.
+ */
 app.use(
   morgan(morganFormat, {
     stream: {
@@ -65,3 +79,4 @@ app.use(
 );
 
 module.exports = app;
+

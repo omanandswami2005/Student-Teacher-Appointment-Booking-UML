@@ -1,3 +1,8 @@
+/**
+ * Renders the Footer component with copyright information and project details.
+ *
+ * @return {JSX.Element} The rendered Footer component.
+ */
 const Footer = () => (
   <footer className="bg-gray-800 text-white p-4 mt-8">
     <div className="container mx-auto text-center">

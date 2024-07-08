@@ -10,7 +10,12 @@ const ApiError = require('../utils/ApiError');
 const ApiResponse = require('../utils/ApiResponse');
 const logger = require('../utils/logger');
 
-//check auth
+/**
+ * Check if the user is authenticated.
+ * 
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 exports.checkAuth = asyncHandler(async (req, res) => {
   logger.info(req.user);
 
@@ -19,11 +24,17 @@ exports.checkAuth = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, { ...req.user }, 'Authentication successful'));
 });
 
-// Register
+/**
+ * Register a new user (student) in the system.
+ * 
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @throws {ApiError} If the student quota has been reached.
+ */
 exports.register = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
 
-  //limit the number of students
+  // Limit the number of students
   const students = await User.countDocuments({ role: 'student' });
   if (students >= 20) {
     throw new ApiError(400, 'Sorry, The Student Quota has been reached :(');
@@ -66,7 +77,13 @@ exports.register = asyncHandler(async (req, res) => {
     );
 });
 
-// Login
+/**
+ * Log in an existing user.
+ * 
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @throws {ApiError} If the user is not found, the password is incorrect, the email is not verified, or the user is not approved.
+ */
 exports.login = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
@@ -89,48 +106,57 @@ exports.login = asyncHandler(async (req, res) => {
     throw new ApiError(404, 'Please wait for admin approval 😅');
   }
 
-  // if (password !== "omiii" )  throw new ApiError(401, 'Incorrect password');
-
   const token = jwt.sign({ user: user }, process.env.JWT_SECRET, {
-    expiresIn: '1h',
+    expiresIn: '2h',
   });
-  // logger.info(JSON.stringify(user.role));
   const redirectUrl = user.role;
   res
     .cookie('token', token, {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
-      maxAge: 1000 * 60 * 30,
-    }) // 30 min
+      maxAge: 1000 * 60 * 60 * 2,
+    }) // 2 hours
     .status(200)
     .json(
       new ApiResponse(200, { redirectUrl, name: user.name }, 'Login successful')
     );
 });
 
-// Logout
+/**
+ * Log out the current user.
+ * 
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 exports.logout = asyncHandler(async (req, res) => {
   res.cookie('token', null, { expires: new Date(Date.now()) });
   res.clearCookie('token');
   res.status(200).json(new ApiResponse(200, null, 'Logout successful'));
 });
 
-//isLoggedIn
+/**
+ * Check if the user is logged in.
+ * 
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 exports.isLoggedIn = asyncHandler(async (req, res) => {
   res.status(200).json(new ApiResponse(200, null, 'User is logged in'));
 });
 
-// Verify Email
-// router.get('/verify-email', );
-
+/**
+ * Verify a user's email using a verification token.
+ * 
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @throws {ApiError} If the user is not found or the verification token has expired.
+ */
 exports.verifyEmail = asyncHandler(async (req, res) => {
   const { token } = req.query;
-  // console.log(token);
 
   const user = await User.findOne({ verificationToken: token });
 
-  // console.log(user);
   if (!user) {
     throw new ApiError(404, 'User not found 🥲');
   }
@@ -145,7 +171,6 @@ exports.verifyEmail = asyncHandler(async (req, res) => {
   }
 
   user.isVerified = true;
-  // user.verificationToken = undefined; // Clear the verification token
   user.verificationTokenExpiry = undefined; // Clear the expiry time
   await user.save();
 

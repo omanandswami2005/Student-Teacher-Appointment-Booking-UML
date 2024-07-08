@@ -46,10 +46,9 @@ const TeacherManagement = () => {
       async () => await addTeacher(teacher),
       null,
       (res) => {
-        const { data } = res;
-        console.log(data);
+       
         setAllTeachers();
-        toast.success('Teacher added successfully');
+        toast.success(`${res.message}`);
       }
     );
   };
@@ -95,7 +94,7 @@ const TeacherManagement = () => {
       async () => await e(teacher.id, teacher),
       null,
       (res) => {
-        console.log(res);
+        // console.log(res);
         toast.success(`${res.message}`);
         setTeachers(updatedTeachers);
         setUpdateTeacher({});

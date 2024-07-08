@@ -1,4 +1,12 @@
 class ApiError extends Error {
+  /**
+   * Constructor for ApiError class.
+   *
+   * @param {any} status - The status code of the error.
+   * @param {string} message - The error message (default: 'Something went wrong').
+   * @param {Array} errors - Array of errors (default: empty).
+   * @param {string} stack - The stack trace (default: empty).
+   */
   constructor(
     status,
     message = 'Something went wrong',

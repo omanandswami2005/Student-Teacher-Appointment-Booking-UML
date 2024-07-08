@@ -33,7 +33,7 @@ const NewAppointmentModal = ({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
 
     await requestHandler(
       async () =>
@@ -42,7 +42,7 @@ const NewAppointmentModal = ({
           : await createAppointment(formData),
       null,
       (res) => {
-        console.log(res);
+        // console.log(res);
         showSuccessToast(`${res.message}`);
         setFormData({
           student: '',

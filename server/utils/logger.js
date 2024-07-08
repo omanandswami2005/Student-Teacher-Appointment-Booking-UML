@@ -1,26 +1,27 @@
+/**
+ * Logger module for the server.
+ * Uses winston for logging and outputs to console.
+ * @module logger
+ */
+
 const { createLogger, format, transports } = require('winston');
 const { combine, timestamp, json, colorize } = format;
 
-// Custom format for console logging with colors
-const consoleLogFormat = format.combine(
-  format.colorize(),
-  format.simple(),
-  format.printf(({ level, message, timestamp }) => {
-    return `${level}: ${message}`;
-  })
-);
-
-// Create a Winston logger
+/**
+ * Logger object that combines colorized logs with json and timestamp.
+ * @constant
+ * @type {Object}
+ */
 const logger = createLogger({
   level: 'info',
   format: combine(colorize(), timestamp(), json()),
   transports: [
     new transports.Console({
-      format: consoleLogFormat,
+      format: combine(colorize(), timestamp(), json()),
     }),
 
-    new transports.File({ filename: 'app.log' }),
   ],
 });
 
 module.exports = logger;
+

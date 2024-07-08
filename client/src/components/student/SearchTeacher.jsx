@@ -3,10 +3,31 @@ import { Button, TextInput } from 'flowbite-react';
 import { requestHandler } from '../../utils';
 import { searchTeachers } from '../../api/studentApi';
 
+/**
+ * SearchTeacher component for searching teachers.
+ *
+ * @component
+ * @returns {JSX.Element} The SearchTeacher component.
+ */
 const SearchTeacher = () => {
+  /**
+   * The search term input by the user.
+   * @type {string}
+   */
   const [searchTerm, setSearchTerm] = useState('');
+
+  /**
+   * The list of teachers matching the search term.
+   * @type {Array<Object>}
+   */
   const [teachers, setTeachers] = useState([]);
 
+  /**
+   * Handles the search button click event.
+   * Makes a request to the server to search for teachers matching the search term.
+   * On success, updates the list of teachers with the returned data.
+   * @returns {Promise<void>}
+   */
   const handleSearch = async () => {
     await requestHandler(
       async () => await searchTeachers(searchTerm),

@@ -18,7 +18,7 @@ const AddTeacherModal = ({ isOpen, onClose, onAddTeacher }) => {
       department,
       subject,
     };
-    console.log(newTeacher);
+    // console.log(newTeacher);
     onAddTeacher(newTeacher);
     onClose(); // Close modal after submission
   };

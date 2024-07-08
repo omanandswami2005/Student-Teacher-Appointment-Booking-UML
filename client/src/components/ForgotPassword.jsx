@@ -4,34 +4,56 @@ import { requestHandler } from '../utils';
 import { showSuccessToast } from '../utils/toastUtils';
 import ReCAPTCHA from 'react-google-recaptcha';
 
+/**
+ * Component for forgot password functionality.
+ * 
+ * @returns {JSX.Element} The ForgotPassword component.
+ */
 const ForgotPassword = () => {
-  const [email, setEmail] = useState('');
-  const [captchaToken, setCaptchaToken] = useState(null);
-  const [message, setMessage] = useState('');
+  const [email, setEmail] = useState(''); // State for user's email
+  const [captchaToken, setCaptchaToken] = useState(null); // State for reCAPTCHA token
+  const [message, setMessage] = useState(''); // State for any error messages
 
+  /**
+   * Sends a request to the server to handle the forgot password functionality.
+   * 
+   * @returns {Promise<void>} A promise that resolves when the request completes.
+   */
   const makeReq = async () => {
     await requestHandler(
-      async () => await forgotPassword(email, captchaToken),
-      null,
-      (res) => {
-        setMessage(res.message);
-        showSuccessToast(`${res.message}`);
+      async () => await forgotPassword(email, captchaToken), // Function to send the request
+      null, // No data to pass
+      (res) => { // Callback function to handle the response
+        setMessage(res.message); // Update the message state with the response message
+        showSuccessToast(`${res.message}`); // Show a success toast with the response message
       }
     );
   };
 
+  /**
+   * Handles the form submission event.
+   * 
+   * @param {React.FormEvent<HTMLFormElement>} e - The form submission event.
+   * @returns {Promise<void>} A promise that resolves when the request completes.
+   */
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!captchaToken) {
+    e.preventDefault(); // Prevent the form from reloading the page
+    if (!captchaToken) { // If no reCAPTCHA token, show an error message
       setMessage('Please complete the CAPTCHA.');
       return;
     }
-    await makeReq();
+    await makeReq(); // Send the request to the server
   };
-  const site = import.meta.env.VITE_SITE_KEY;
 
+  const site = import.meta.env.VITE_SITE_KEY; // Get the site key from the environment variables
+
+  /**
+   * Handles the change event for the reCAPTCHA token.
+   * 
+   * @param {string} token - The new reCAPTCHA token.
+   */
   const handleCaptchaChange = (token) => {
-    setCaptchaToken(token);
+    setCaptchaToken(token); // Update the captchaToken state with the new token
   };
 
   return (

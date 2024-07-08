@@ -15,11 +15,24 @@ const AuthContext = createContext({
   logout: async () => {},
 });
 
-// Create a component that provides authentication-related data and functions
+
+/**
+ * Creates an AuthProvider component that provides authentication-related data and functions.
+ *
+ * @param {Object} props - The properties passed to the component.
+ * @param {ReactNode} props.children - The child elements to be rendered.
+ * @return {ReactElement} The rendered AuthProvider component.
+ */
 const AuthProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
+    /**
+     * Asynchronously logs in a user with the provided data.
+     *
+     * @param {Object} data - The data required for user login.
+     * @return {Promise<void>} A promise that resolves when the login is successful.
+     */
   const login = async (data) => {
     await requestHandler(
       async () => await loginUser(data),
@@ -36,6 +49,12 @@ const AuthProvider = ({ children }) => {
     );
   };
 
+  /**
+   * Registers a user with the provided data asynchronously.
+   *
+   * @param {Object} data - The data required for user registration.
+   * @return {Promise<void>} A promise that resolves after successful registration.
+   */
   const register = async (data) => {
     await requestHandler(
       async () => await registerUser(data),
@@ -47,6 +66,11 @@ const AuthProvider = ({ children }) => {
     );
   };
 
+  /**
+   * Logs out the user asynchronously.
+   *
+   * @return {Promise<void>} A promise that resolves after successful logout.
+   */
   const logout = async () => {
     await requestHandler(
       async () => await logoutUser(),

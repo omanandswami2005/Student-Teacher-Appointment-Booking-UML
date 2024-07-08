@@ -6,15 +6,44 @@ import {
   deleteStudent,
   approveStudent,
 } from '../../api/adminApi';
-
+/**
+ * StudentList component renders a list of students with filtering and pagination capabilities.
+ *
+ * @returns {JSX.Element} The StudentList component.
+ */
 const StudentList = () => {
+  /**
+   * The state variable to hold the list of students.
+   */
   const [students, setStudents] = useState([]);
+
+  /**
+   * The state variable to hold the filter text.
+   */
   const [filter, setFilter] = useState('');
+
+  /**
+   * The state variable to hold the current page number.
+   */
   const [page, setPage] = useState(0);
+
+  /**
+   * The state variable to hold the hasMore flag.
+   */
   const [hasMore, setHasMore] = useState(true);
+
+  /**
+   * The reference to the observer.
+   */
   const observer = useRef();
 
-  // Mock API request to fetch students
+  /**
+   * Fetches the students from the server based on the page and limit.
+   *
+   * @param {number} page - The page number.
+   * @param {number} limit - The maximum number of students to retrieve.
+   * @return {Promise<Object>} The response data containing the students.
+   */
   const fetchStudents = async (page, limit) => {
     return await requestHandler(
       async () => await getAllStudents(page, limit),
@@ -26,11 +55,17 @@ const StudentList = () => {
     );
   };
 
+  /**
+   * Loads the next set of students when the last student element is visible.
+   */
   useEffect(() => {
     loadMoreStudents();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
 
+  /**
+   * Loads the next set of students when the last student element is visible.
+   */
   const loadMoreStudents = async () => {
     const newStudents = await fetchStudents(page, 10);
     if (!newStudents) return;
@@ -40,6 +75,11 @@ const StudentList = () => {
     }
   };
 
+  /**
+   * Handles the approval of a student.
+   *
+   * @param {string} id - The ID of the student.
+   */
   const handleApprove = async (id) => {
     // console.log(students);
     // setStudents(students.map(student => student._id === id ? { ...student, approved: !student.approved } : student));
@@ -54,6 +94,11 @@ const StudentList = () => {
     );
   };
 
+  /**
+   * Handles the deletion of a student.
+   *
+   * @param {string} id - The ID of the student.
+   */
   const handleDelete = async (id) => {
     //confirm deletion
     const confirmDelete = window.confirm(
@@ -72,12 +117,22 @@ const StudentList = () => {
     );
   };
 
+  /**
+   * Filters the students based on the filter text.
+   *
+   * @returns {Array} The filtered students.
+   */
   const filteredStudents = students.filter(
     (student) =>
       student.name.toLowerCase().includes(filter.toLowerCase()) ||
       student.email.toLowerCase().includes(filter.toLowerCase())
   );
 
+  /**
+   * Sets up the observer to load the next set of students when the last student element is visible.
+   *
+   * @param {HTMLInputElement|null} node - The last student element.
+   */
   const lastStudentElementRef = useCallback(
     (node) => {
       if (observer.current) observer.current.disconnect();

@@ -1,3 +1,11 @@
+/**
+ * This is the entry point of the server application.
+ * It sets up the application, connects to the database,
+ * and starts the server on the specified port.
+ *
+ * @module index
+ */
+
 const app = require('./app');
 const connectDB = require('./db');
 const asyncHandler = require('./utils/asyncHandler');
@@ -8,56 +16,48 @@ const protectedRoutes = require('./routes/protectedRoutes');
 const errorHandler = require('./middlewares/errorHandler');
 
 const PORT = process.env.PORT || 8000;
-connectDB()
-  .then(() => {
+
+/**
+ * Connects to the database and starts the server.
+ *
+ * @return {Promise<void>} A promise that resolves when the server is started.
+ */
+const startServer = async () => {
+  try {
+    await connectDB();
     app.listen(PORT, () => {
       console.log(`Server listening on port ${PORT}`);
     });
-  })
-  .catch((error) => {
+  } catch (error) {
     console.error('Database connection error:', error);
     process.exit(1);
+  }
+};
+
+/**
+ * Initializes the server application.
+ *
+ * @return {void}
+ */
+const init = () => {
+  // Sample route to demonstrate error handling
+  app.get('/', (req, res) => {
+    res.send('Hello, World!');
   });
 
-// Sample route to demonstrate error handling
-app.get('/', (req, res) => {
-  res.send('Hello, World!');
-});
+  // Public routes
+  app.use('/api/auth', authRoutes);
 
-// Sample route that triggers an error
-app.get('/error', (req, res, next) => {
-  const error = new Error('This is a deliberate error.');
-  error.status = 400;
-  next(error);
-});
+  // Protected routes
+  app.use('/api', protectedRoutes);
 
-// Sample route without asyncHandler (requires try-catch block)
-app.get('/without-async-handler', async (req, res, next) => {
-  try {
-    // Simulate an asynchronous operation that throws an error
-    await new Promise((_, reject) => reject(new Error('Something went wrong')));
-    res.send('This will not be reached');
-  } catch (error) {
-    next(error);
-  }
-});
+  // Middleware to handle errors
+  app.use(errorHandler);
 
-// Sample route with asyncHandler (no try-catch block needed)
-app.get(
-  '/with-async-handler',
-  asyncHandler(async (req, res) => {
-    // Simulate an asynchronous operation that throws an error
-    await new Promise((_, reject) => reject(new Error('Something went wrong')));
+  // Start the server
+  startServer();
+};
 
-    res.send('This will not be reached');
-  })
-);
+// Initialize the server
+init();
 
-// Public routes
-app.use('/api/auth', authRoutes);
-
-// Protected routes
-app.use('/api', protectedRoutes);
-
-// Middleware to handle errors
-app.use(errorHandler);

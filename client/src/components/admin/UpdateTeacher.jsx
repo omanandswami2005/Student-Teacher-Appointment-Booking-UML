@@ -1,5 +1,16 @@
 import PropType from 'prop-types';
 
+/**
+ * Renders a modal for updating a teacher's information.
+ *
+ * @param {Object} props - The component props.
+ * @param {boolean} props.isOpen - Whether the modal is open or not.
+ * @param {Function} props.onClose - The function to call when the modal is closed.
+ * @param {Object} props.teacher - The teacher object to update.
+ * @param {Function} props.onSave - The function to call when the teacher is saved.
+ * @param {Function} props.onChange - The function to call when the teacher's information changes.
+ * @return {JSX.Element|null} The modal component or null if the modal is not open.
+ */
 const UpdateTeacher = ({ isOpen, onClose, teacher, onSave, onChange }) => {
   if (!isOpen) return null;
 

@@ -14,7 +14,7 @@ const LogoutButton = () => {
       async () => await logoutUser(),
       null,
       (res) => {
-        console.log(res);
+        console.log(res.message);
         nav('/', { replace: true });
       }
     );
@@ -24,7 +24,8 @@ const LogoutButton = () => {
       onClick={onLogout}
       className="py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 dark:bg-red-700 dark:hover:bg-red-800"
     >
-      Logout
+      Logout 
+
     </button>
   );
 };

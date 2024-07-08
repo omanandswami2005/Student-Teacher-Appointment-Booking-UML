@@ -12,11 +12,19 @@ const constantTeachers = [
   '668ac090bf498dba5c703414',
 ];
 
-// Add Teacher
+/**
+ * Add a new teacher to the system.
+ * Limits the number of teachers to 10.
+ * Hashes the password before saving.
+ *
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @throws {ApiError} If the teacher quota has been reached.
+ */
 exports.addTeacher = asyncHandler(async (req, res) => {
   const { name, email, password, department, subject } = req.body;
 
-  //limit the number of teachers
+  // Limit the number of teachers
   const teachers = await User.countDocuments({ role: 'teacher' });
   if (teachers >= 10) {
     throw new ApiError(400, 'Sorry, The Teacher Quota has been reached :(');
@@ -40,7 +48,14 @@ exports.addTeacher = asyncHandler(async (req, res) => {
     .json(new ApiResponse(201, { newUser }, 'Teacher added successfully !'));
 });
 
-// Update Teacher
+/**
+ * Update an existing teacher's information.
+ * Prevents updates to constant teachers.
+ *
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @throws {ApiError} If the teacher cannot be updated.
+ */
 exports.updateTeacher = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const { name, department, subject } = req.body;
@@ -61,7 +76,14 @@ exports.updateTeacher = asyncHandler(async (req, res) => {
     );
 });
 
-// Delete Teacher
+/**
+ * Delete an existing teacher.
+ * Prevents deletion of constant teachers.
+ *
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @throws {ApiError} If the teacher cannot be deleted.
+ */
 exports.deleteTeacher = asyncHandler(async (req, res) => {
   const { id } = req.params;
   if (constantTeachers.includes(id)) {
@@ -74,7 +96,14 @@ exports.deleteTeacher = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, null, 'Teacher deleted successfully'));
 });
 
-// Approve Registration
+/**
+ * Approve or restrict a student's registration.
+ * Toggles the approved status of a student.
+ *
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @throws {ApiError} If the student cannot be restricted.
+ */
 exports.approveStudent = asyncHandler(async (req, res) => {
   const { id } = req.params;
   if (id === '668abc8e8b7083333d78e3e4') {
@@ -101,7 +130,12 @@ exports.approveStudent = asyncHandler(async (req, res) => {
     );
 });
 
-// View All Students
+/**
+ * View all students with pagination.
+ *
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 exports.viewAllStudents = asyncHandler(async (req, res) => {
   const limit = req.params.limit ? parseInt(req.params.limit) : 10;
   const page = req.params.page ? parseInt(req.params.page) : 1;
@@ -114,7 +148,14 @@ exports.viewAllStudents = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, { students }, 'Students found successfully'));
 });
 
-//Delete Student
+/**
+ * Delete an existing student.
+ * Prevents deletion of a specific student.
+ *
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @throws {ApiError} If the student cannot be deleted.
+ */
 exports.deleteStudent = asyncHandler(async (req, res) => {
   const { id } = req.params;
   if (id == '668abc8e8b7083333d78e3e4') {
@@ -126,7 +167,12 @@ exports.deleteStudent = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, null, 'Student deleted successfully'));
 });
 
-// View All Teachers
+/**
+ * View all teachers.
+ *
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 exports.viewAllTeachers = asyncHandler(async (req, res) => {
   const teachers = await User.find({ role: 'teacher' });
   // console .info(teachers);
@@ -144,18 +190,27 @@ exports.viewAllTeachers = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, { TeacherList }, 'Teachers found successfully'));
 });
 
-// View All Appointments
+/**
+ * View all appointments.
+ *
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 exports.viewAllAppointments = asyncHandler(async (req, res) => {
-  const appointments = await appointments.find();
+  const appointmentsList = await appointments.find();
   res
     .status(200)
     .json(
-      new ApiResponse(200, { appointments }, 'Appointments found successfully')
+      new ApiResponse(200, { appointments: appointmentsList }, 'Appointments found successfully')
     );
 });
 
-//get all counts (total teacher, total students, total appintments, pending requests of student ,approved requests of students and pending appointments)
-
+/**
+ * Get counts of various entities and statuses in the system.
+ * 
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 exports.getAllCounts = asyncHandler(async (req, res) => {
   const totalTeachers = await User.countDocuments({ role: 'teacher' });
   const totalStudents = await User.countDocuments({ role: 'student' });
@@ -182,7 +237,7 @@ exports.getAllCounts = asyncHandler(async (req, res) => {
     status: 'Completed',
   });
 
-  const cancledAppointments = await appointments.countDocuments({
+  const canceledAppointments = await appointments.countDocuments({
     status: 'Canceled',
   });
 
@@ -195,13 +250,18 @@ exports.getAllCounts = asyncHandler(async (req, res) => {
     pendingAppointments,
     upcomingAppointments,
     completedAppointments,
-    cancledAppointments,
+    canceledAppointments,
   };
   res
     .status(200)
     .json(new ApiResponse(200, { allCounts }, 'Counts found successfully'));
 });
 
+/**
+ * Get monthly data for appointments.
+ *
+ * @returns {Object} Monthly data for appointments.
+ */
 const getMonthlyData = async () => {
   const currentYear = new Date().getFullYear();
 
@@ -260,6 +320,12 @@ const getMonthlyData = async () => {
   return appointmentData;
 };
 
+/**
+ * Get monthly data for appointments and respond with it.
+ *
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ */
 exports.getMonthlyData = asyncHandler(async (req, res) => {
   const appointmentData = await getMonthlyData();
   res

@@ -3,6 +3,13 @@ import PropTypes from 'prop-types';
 import DarkToggler from './DarkToggler';
 import LogoutButton from './Logout';
 
+/**
+ * Renders a navigation bar component with a title and a logout button.
+ *
+ * @param {Object} props - The properties passed to the component.
+ * @param {string} props.title - The title to be displayed in the navigation bar.
+ * @return {JSX.Element} The rendered navigation bar component.
+ */
 const Navbar = ({ title }) => {
   const [isOpen, setIsOpen] = useState(false);
 

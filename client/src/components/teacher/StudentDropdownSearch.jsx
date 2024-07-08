@@ -30,7 +30,7 @@ const StudentDropdownSearch = ({ formData, setFormData, IsTeacher }) => {
   };
 
   const handleStudentSelect = (studentId) => {
-    console.log(studentId);
+    // console.log(studentId);
     setFormData({
       ...formData,
       student: studentId,
@@ -39,7 +39,7 @@ const StudentDropdownSearch = ({ formData, setFormData, IsTeacher }) => {
     setSearchTerm('');
   };
   const handleTeachertSelect = (studentId) => {
-    console.log(studentId);
+    // console.log(studentId);
     setFormData({
       ...formData,
       teacher: studentId,

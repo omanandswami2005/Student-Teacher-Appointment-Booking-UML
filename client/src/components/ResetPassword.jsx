@@ -5,6 +5,10 @@ import { resetPassword } from '../api/authApi'; // You need to implement this
 import { requestHandler } from '../utils';
 import { showSuccessToast } from '../utils/toastUtils';
 
+/**
+ * ResetPassword component.
+ * @returns {JSX.Element} The ResetPassword component.
+ */
 const ResetPassword = () => {
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token');
@@ -15,6 +19,10 @@ const ResetPassword = () => {
   const [message, setMessage] = useState('');
   const [isResetSuccessful, setIsResetSuccessful] = useState(false);
 
+  /**
+   * Makes a request to reset the password.
+   * @returns {Promise<void>} A promise that resolves when the request completes.
+   */
   const makeReq = async () => {
     await requestHandler(
       async () => await resetPassword(token, newPassword),
@@ -26,6 +34,11 @@ const ResetPassword = () => {
     );
   };
 
+  /**
+   * Handles the form submission event.
+   * @param {React.FormEvent<HTMLFormElement>} e - The form submission event.
+   * @returns {Promise<void>} A promise that resolves when the request completes.
+   */
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!newPassword || !confirmPassword) {

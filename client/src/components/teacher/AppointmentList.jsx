@@ -64,7 +64,7 @@ const AppointmentsList = ({ IsTeacher }) => {
   const handleFilterChange = (e) => {
     setStatusFilter(e.target.value);
   };
-  console.log(appointments);
+  // console.log(appointments);
   const filteredAppointments = appointments.filter(
     (appointment) =>
       appointment.student.name

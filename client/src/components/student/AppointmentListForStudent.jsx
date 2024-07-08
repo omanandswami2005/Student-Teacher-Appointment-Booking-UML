@@ -6,46 +6,91 @@ import { Button } from 'flowbite-react';
 import PropType from 'prop-types';
 
 const statusOptions = ['Pending', 'Approved', 'Canceled', 'Completed'];
+/**
+ * Renders a list of appointments for a student or teacher.
+ * @param {boolean} IsTeacher - Indicates if the current user is a teacher.
+ * @returns {JSX.Element} - The rendered component.
+ */
 const AppointmentsListForStudent = ({ IsTeacher }) => {
+  /**
+   * State holding the list of appointments.
+   * @type {Array}
+   */
   const [appointments, setAppointments] = useState([]);
+
+  /**
+   * State indicating if the new appointment modal is open.
+   * @type {boolean}
+   */
   const [newAppointmentModal, setNewAppointmentModal] = useState(false);
+
+  /**
+   * State holding the search term for filtering appointments.
+   * @type {string}
+   */
   const [searchTerm, setSearchTerm] = useState('');
+
+  /**
+   * State holding the status filter for filtering appointments.
+   * @type {string}
+   */
   const [statusFilter, setStatusFilter] = useState('');
 
+  /**
+   * Fetches all appointments from the API on component mount.
+   */
   useEffect(() => {
     fetchAppointments();
   }, []);
 
+  /**
+   * Opens the new appointment modal.
+   */
   const openNewAppointmentModal = () => {
     setNewAppointmentModal(true);
   };
 
+  /**
+   * Fetches all appointments from the API after an appointment is created.
+   */
   const onAppointmentCreated = () => {
     fetchAppointments();
   };
 
+  /**
+   * Fetches all appointments from the API.
+   */
   const fetchAppointments = async () => {
     await requestHandler(
       async () => await getAllAppointments(),
       null,
       (res) => {
         const { data } = res;
-        // console.log(res)
         setAppointments(data.appointments);
       }
     );
   };
 
+  /**
+   * Handles the search input change event.
+   * @param {Event} e - The input change event.
+   */
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
   };
 
+  /**
+   * Handles the status filter change event.
+   * @param {Event} e - The input change event.
+   */
   const handleFilterChange = (e) => {
     setStatusFilter(e.target.value);
   };
 
-  //   console.log(appointments);
-
+  /**
+   * Filters the appointments based on the search term and status filter.
+   * @type {Array}
+   */
   const filteredAppointments = appointments.filter((appointment) =>
     !IsTeacher
       ? appointment.student.name

@@ -3,22 +3,30 @@ import { requestHandler } from '../../utils';
 import { getCounts } from '../../api/adminApi';
 import { useNavigate } from 'react-router-dom';
 
+/**
+ * Renders the Key Metrics component.
+ *
+ * @return {JSX.Element} The rendered Key Metrics component.
+ */
 const KeyMetrics = () => {
   const nav = useNavigate();
   const [counts, setCounts] = useState({});
+
+  /**
+   * Fetches the counts from the server and updates the component state.
+   */
   useEffect(() => {
-    async function getCount() {
+    const fetchCounts = async () => {
       await requestHandler(
         async () => await getCounts(),
         null,
         (res) => {
           const { data } = res;
           setCounts(data.allCounts);
-          //   console.log(data);
         }
       );
-    }
-    getCount();
+    };
+    fetchCounts();
   }, []);
 
   return (

@@ -1,12 +1,23 @@
+/**
+ * Controller for teacher API routes.
+ */
+
 const Appointment = require('../models/Appointment.model');
 const asyncHandler = require('../utils/asyncHandler');
 const ApiResponse = require('../utils/ApiResponse');
 const ApiError = require('../utils/ApiError');
 
-// Schedule Appointment
+/**
+ * Schedule a new appointment for a teacher.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @throws {ApiError} If the appointment quota has been reached.
+ * @throws {ApiError} If the student ID, date, or message is missing.
+ * @returns {Promise<Object>} The response data containing the created appointment.
+ */
 exports.scheduleAppointment = asyncHandler(async (req, res) => {
   const { student, date, message } = req.body;
-  // console.log(req.body);
 
   //limit the number of Appointments
   const appintments = await Appointment.countDocuments();
@@ -46,10 +57,16 @@ exports.scheduleAppointment = asyncHandler(async (req, res) => {
     );
 });
 
-// Approve/Cancel Appointment
+/**
+ * Update the status of an appointment.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @throws {ApiError} If the status is missing.
+ * @returns {Promise<Object>} The response data containing the updated appointment.
+ */
 exports.updateAppointmentStatus = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  // console.log(id,);
   const status = req.body.data;
 
   if (!status) {
@@ -72,14 +89,17 @@ exports.updateAppointmentStatus = asyncHandler(async (req, res) => {
     );
 });
 
-// View All Appointments
+/**
+ * View all appointments for a teacher.
+ *
+ * @param {Object} req - The request object.
+ * @param {Object} res - The response object.
+ * @returns {Promise<Object>} The response data containing the list of appointments.
+ */
 exports.viewAllAppointments = asyncHandler(async (req, res) => {
-  console.log(req.user.user._id);
   const appointments = await Appointment.find({
     teacher: req.user.user._id,
   }).populate('student');
-
-  console.log(appointments);
 
   res
     .status(200)
@@ -87,3 +107,4 @@ exports.viewAllAppointments = asyncHandler(async (req, res) => {
       new ApiResponse(200, { appointments }, 'Appointments found successfully')
     );
 });
+

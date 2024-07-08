@@ -10,6 +10,14 @@ const transporter = nodemailer.createTransport({
     pass: 'xcfb tcpx swxy ivlg',
   },
 });
+/**
+ * Sends a verification email to the specified email address.
+ *
+ * @param {string} email - The email address to send the verification email to.
+ * @param {string} token - The verification token to include in the email link.
+ * @param {boolean} isPassword - Indicates whether the email is for password reset or not.
+ * @return {Promise<void>} A promise that resolves when the email is sent successfully.
+ */
 const sendVerificationEmail = (email, token, isPassword) => {
   const htmlVerification = `<!DOCTYPE html>
     <html lang="en">

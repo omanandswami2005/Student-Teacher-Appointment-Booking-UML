@@ -1,19 +1,39 @@
 import { useEffect, useState } from 'react';
 
+/**
+ * A component that toggles the dark mode of the application.
+ * It uses the local storage to persist the dark mode state.
+ *
+ * @return {JSX.Element} The dark mode toggle button.
+ */
 const DarkToggler = () => {
+  /**
+   * The state of the dark mode.
+   *
+   * @type {boolean}
+   */
   const [darkModeState, setDarkModeState] = useState(false);
+
   useEffect(() => {
+    /**
+     * Sets the initial dark mode state based on the local storage and the user's preference.
+     */
     if (
       localStorage.theme === 'dark' ||
       (!('theme' in localStorage) &&
         window.matchMedia('(prefers-color-scheme: dark)').matches)
     ) {
       document.documentElement.classList.add('dark');
+      setDarkModeState(true);
     } else {
       document.documentElement.classList.remove('dark');
+      setDarkModeState(false);
     }
   }, []);
 
+  /**
+   * Toggles the dark mode state and updates the local storage.
+   */
   const toggleDarkMode = () => {
     if (document.documentElement.classList.contains('dark')) {
       document.documentElement.classList.remove('dark');

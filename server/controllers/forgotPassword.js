@@ -1,14 +1,17 @@
-// forgotPassword.js
 const crypto = require('crypto');
 const User = require('../models/User.model');
 const asyncHandler = require('../utils/asyncHandler');
-
 const ApiError = require('../utils/ApiError');
 const ApiResponse = require('../utils/ApiResponse');
 const sendVerificationEmail = require('../utils/nodemailer');
-// const { config } = require('dotenv').config();
 const axios = require('axios');
 
+/**
+ * Verifies the CAPTCHA token with Google's reCAPTCHA API.
+ * 
+ * @param {string} token - The CAPTCHA token to verify.
+ * @returns {Promise<boolean>} - Returns true if CAPTCHA is valid, otherwise false.
+ */
 const verifyCaptcha = async (token) => {
   const response = await axios.post(
     `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.CAPTCHA_SECRET}&response=${token}`
@@ -16,9 +19,15 @@ const verifyCaptcha = async (token) => {
   return response.data.success;
 };
 
-// Forgot Password
+/**
+ * Handles the forgot password functionality.
+ * 
+ * @param {Object} req - Express request object.
+ * @param {Object} res - Express response object.
+ * @param {Function} next - Express next middleware function.
+ * @throws {ApiError} If the CAPTCHA is invalid, user is not found, user is not verified, or if the user has recently requested a password reset.
+ */
 exports.forgotPassword = asyncHandler(async (req, res, next) => {
-  // console.log(req.body)
   const { email, captchaToken } = req.body;
 
   const isCaptchaValid = await verifyCaptcha(captchaToken);
@@ -31,7 +40,8 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
   if (!user) {
     throw new ApiError(404, 'User not found 🥲');
   }
-  //Check if user is verified
+
+  // Check if user is verified
   if (!user.isVerified) {
     throw new ApiError(400, 'Please verify your email first');
   }
@@ -42,10 +52,10 @@ exports.forgotPassword = asyncHandler(async (req, res, next) => {
       'Please wait for 5 minutes before resetting your password again'
     );
   }
+
   // Generate a reset token and set expiry time (e.g., 5 minutes)
   const resetToken = crypto.randomBytes(32).toString('hex');
-
-  const expiryTime = Date.now() + 5 * 60 * 1000; // 3 minutes in milliseconds
+  const expiryTime = Date.now() + 5 * 60 * 1000; // 5 minutes in milliseconds
 
   user.resetPasswordToken = resetToken;
   user.resetPasswordExpiry = expiryTime;
