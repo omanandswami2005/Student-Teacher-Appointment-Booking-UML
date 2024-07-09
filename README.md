@@ -1,5 +1,3 @@
-1. Install dependencies:
-
 # Student-Teacher Appointment Booking System
 
 ## Table of Contents
@@ -65,8 +63,7 @@ This project is a web-based application designed for managing student-teacher ap
    git clone https://github.com/yourusername/appointment-booking-system.git
    cd appointment-booking-system
    ```
-
-    2. Install dependencies:
+2. Install dependencies:
 
 ```bash
    npm install
