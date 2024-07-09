@@ -1,15 +1,16 @@
-# Student-Teacher Appointment Booking System
+#                               ⭐ The Student-Teacher Appointment Booking System ! ⭐
 ## 🌟[View Live (Hosted) Project !](https://stabs.onrender.com/ "Student-Teacher Appointment Booking System")🔗
 
 ## Table of Contents
 
-- [Overview](#overview)
+- [Installation](#installation)
 - [Features](#features)
 - [Tech Stack](#tech-stack)
 - [Installation](#installation)
 - [Usage](#usage)
 - [API Documentation](#api-documentation)
 - [Folder Structure](#folder-structure)
+- [Test Cases](#test-cases)
 - [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
@@ -148,6 +149,31 @@ appointment-booking-system/
 
 ```
 
+## Test Cases
+
+### User Registration
+
+| Test Case Description               | Steps                                                                                          | Expected Result                                             |
+| ----------------------------------- | ---------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
+| Register a new user                 | 1. Navigate to the register page.<br>2. Enter valid details.<br>3. Click Register.     | User should be registered and receive a verification email. |
+| Register with an existing email     | 1. Navigate to the register page.<br>2. Enter an existing email.<br>3. Click Register. | Error message should be displayed: "Email already exists."  |
+| Register without filling all fields | 1. Navigate to the register page.<br>2. Leave some fields blank.<br>3. Click Register. | Error message should be displayed for the required fields.  |
+
+### User Login
+
+| Test Case Description            | Steps                                                                                                | Expected Result                                                       |
+| -------------------------------- | ---------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| Login with correct credentials   | 1. Navigate to the login page.<br>2. Enter valid email and password.<br>3. Click Login.      | User should be logged in and redirected to the appropriate dashboard. |
+| Login with incorrect credentials | 1. Navigate to the login page.<br>2. Enter invalid email or password.<br>3. Click Login.     | Error message should be displayed: "Invalid email or password."       |
+| Login with unverified email      | 1. Navigate to the login page.<br>2. Enter unverified email and password.<br>3. Click Login. | Error message should be displayed: "Please verify your email."        |
+
+### Booking an Appointment
+
+| Test Case Description                       | Steps                                                                                                                            | Expected Result                                                      |
+| ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| Book an appointment as a student            | 1. Login as a student.<br>2. Navigate to the book appointment page.<br>3. Fill in details.<br>4. Click Book.         | Appointment should be booked and visible in the student's dashboard. |
+| Book an appointment without required fields | 1. Login as a student.<br>2. Navigate to the book appointment page.<br>3. Leave some fields blank.<br>4. Click Book. | Error message should be displayed for the required fields.           |
+
 ## Contributing
 
 1. Fork the repository.
@@ -164,4 +190,4 @@ This project is licensed under the MIT License.
 
 For any inquiries or issues, please contact:
 
-- **Omanand Swami** - [Your Email](mailto:omanandswami2005@gmail.com "Omanand Swami's Email")
+- **Omanand Swami** - [Email Me](mailto:omanandswami2005@gmail.com "Omanand Swami's Email")
