@@ -1,7 +1,7 @@
 #                               ⭐ The Student-Teacher Appointment Booking System ! ⭐
-## 🌟[View Live (Hosted) Project !](https://stabs.onrender.com/ "Student-Teacher Appointment Booking System")🔗
+## 👉🏻 [View Live (Hosted) Project !](https://stabs.onrender.com/ "Student-Teacher Appointment Booking System")🔗
 
-## Table of Contents
+## 🌟Table of Contents
 
 - [Installation](#installation)
 - [Features](#features)
@@ -10,16 +10,17 @@
 - [Usage](#usage)
 - [API Documentation](#api-documentation)
 - [Folder Structure](#folder-structure)
+- [Screenshots](#screenshots)
 - [Test Cases](#test-cases)
 - [Contributing](#contributing)
 - [License](#license)
 - [Contact](#contact)
 
-## Overview
+## 🌟Overview
 
 This project is a web-based application designed for managing student-teacher appointments. It features roles for admins, teachers, and students, each with distinct functionalities and access levels. The application includes advanced features like email verification, password reset, and CAPTCHA integration for security.
 
-## Features
+## 🌟Features
 
 - **Admin Role**:
 
@@ -42,7 +43,7 @@ This project is a web-based application designed for managing student-teacher ap
   - Password reset functionality.
   - CAPTCHA integration to prevent spam and bot registrations.
 
-## Tech Stack
+## 🌟Tech Stack
 
 - **Frontend**: React, Tailwind CSS, Flowbite
 - **Backend**: Node.js, Express.js
@@ -51,7 +52,7 @@ This project is a web-based application designed for managing student-teacher ap
 - **Email Service**: Nodemailer
 - **Other Tools**: Google reCAPTCHA, Axios
 
-## Installation
+## 🌟Installation
 
 ### Prerequisites
 
@@ -67,9 +68,9 @@ This project is a web-based application designed for managing student-teacher ap
    ```
 2. Install dependencies:
 
-```bash
-   npm install
-```
+    ```bash
+       npm install
+    ```
 
 3. Create a `.env` file in the root directory and add the following environment variables:
 
@@ -87,14 +88,14 @@ This project is a web-based application designed for managing student-teacher ap
    npm start
    ```
 
-## Usage
+## 🌟Usage
 
 - Navigate to `http://localhost:5000` to access the application.
 - Register as a student, verify your email, and login to book appointments.
 - Admins can log in and manage the system.
 - Teachers can log in and view their appointment schedules.
 
-## API Documentation
+## 🌟API Documentation
 
 ### Endpoints
 
@@ -124,7 +125,7 @@ This project is a web-based application designed for managing student-teacher ap
   - `POST /api/student/appointments` - Book an appointment
   - `GET /api/student/appointments` - View student's appointments
 
-## Folder Structure
+## 🌟Folder Structure
 
 ```
 appointment-booking-system/
@@ -149,7 +150,13 @@ appointment-booking-system/
 
 ```
 
-## Test Cases
+## 🌟screenshots🖼️
+![Screenshot 2024-07-09 153435](https://github.com/ItsOmiii2005/Student-Teacher-Appointment-Booking-UML/assets/101080173/84508bd8-de41-4824-a6cb-f833ba49d159)
+![Screenshot 2024-07-09 154647](https://github.com/ItsOmiii2005/Student-Teacher-Appointment-Booking-UML/assets/101080173/83cae3ae-8965-45ed-ba78-972d29466caf)
+
+
+
+## 🌟Test Cases
 
 ### User Registration
 
@@ -174,7 +181,7 @@ appointment-booking-system/
 | Book an appointment as a student            | 1. Login as a student.<br>2. Navigate to the book appointment page.<br>3. Fill in details.<br>4. Click Book.         | Appointment should be booked and visible in the student's dashboard. |
 | Book an appointment without required fields | 1. Login as a student.<br>2. Navigate to the book appointment page.<br>3. Leave some fields blank.<br>4. Click Book. | Error message should be displayed for the required fields.           |
 
-## Contributing
+## 🌟Contributing
 
 1. Fork the repository.
 2. Create your feature branch (`git checkout -b feature/new-feature`).
@@ -182,12 +189,6 @@ appointment-booking-system/
 4. Push to the branch (`git push origin feature/new-feature`).
 5. Open a Pull Request.
 
-## License
+## 🌟License
 
 This project is licensed under the MIT License.
-
-## Contact
-
-For any inquiries or issues, please contact:
-
-- **Omanand Swami** - [Email Me](mailto:omanandswami2005@gmail.com "Omanand Swami's Email")
