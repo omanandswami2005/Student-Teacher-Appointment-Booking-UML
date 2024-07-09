@@ -111,7 +111,7 @@ exports.login = asyncHandler(async (req, res) => {
   });
   const redirectUrl = user.role;
   res
-    .cookie('__HOST-token', token, {
+    .cookie('token', token, {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
