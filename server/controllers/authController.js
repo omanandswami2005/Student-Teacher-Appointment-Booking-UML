@@ -133,6 +133,8 @@ exports.logout = asyncHandler(async (req, res) => {
   res.cookie('token', null, {
     expires: new Date(Date.now()-2),
     sameSite: 'none',
+     httpOnly: true,
+      secure: true,
   });
   res.status(200).json(new ApiResponse(200, null, 'Logout successful'));
 });
