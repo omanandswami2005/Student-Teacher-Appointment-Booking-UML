@@ -115,8 +115,7 @@ exports.login = asyncHandler(async (req, res) => {
       httpOnly: true,
       secure: true,
       sameSite: 'none',
-      maxAge: 1000 * 60 * 60 * 2,
-      Partitioned,
+      maxAge: 1000 * 60 * 60 * 2
     }) // 2 hours
     .status(200)
     .json(
