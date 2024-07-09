@@ -16,7 +16,7 @@ const UpdateTeacher = ({ isOpen, onClose, teacher, onSave, onChange }) => {
 
   return (
     <div className="fixed inset-0 z-50 overflow-auto bg-black bg-opacity-50 flex items-center justify-center">
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-lg w-1/3">
+     <div className="bg-white dark:bg-gray-800 rounded-lg p-8 max-w-md w-full mx-4">
         <h2 className="text-2xl font-bold mb-4 dark:text-gray-200">
           Update Teacher
         </h2>
