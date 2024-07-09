@@ -80,7 +80,8 @@ const Login = () => {
    *
    * @return {Promise<void>} A promise that resolves when the login process is complete.
    */
-  const handleLogin = async () => {
+  const handleLogin = async (e) => {
+e.preventDefault();
     if (!data.email || !data.password) {
       showErrorToast('Please fill in all fields');
       return;

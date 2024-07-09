@@ -199,7 +199,7 @@ const LandingPage = () => {
                 <p className="text-left mb-8">
                   &bull; As This project is{' '}
                   <b> Hosted on a free server(Render)</b> so, please{' '}
-                  <b> Be patient while it loads the data ⌚.</b> <br />
+                  <b> Be patient while it loads the data ⌚(free instance will spin down with inactivity, which can delay requests by 50 seconds or more).</b> <br />
                   &bull; Also we are using &nbsp; <b>
                     {' '}
                     THE FREE TIER&nbsp;{' '}
