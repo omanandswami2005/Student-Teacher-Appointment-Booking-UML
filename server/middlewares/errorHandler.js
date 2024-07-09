@@ -16,7 +16,7 @@ const errorHandler = (err, req, res, next) => {
     `${err.status || 500} - ${err.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`
   );
 
-  // logger.error(err.stack);
+  logger.error(err.stack);
 
   // Check for duplicate key error (MongoDB)
   if (err.code && err.code === 11000) {

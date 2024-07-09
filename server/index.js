@@ -16,7 +16,6 @@ const protectedRoutes = require('./routes/protectedRoutes');
 const errorHandler = require('./middlewares/errorHandler');
 
 const PORT = process.env.PORT || 8000;
-
 /**
  * Connects to the database and starts the server.
  *
@@ -40,9 +39,7 @@ const startServer = async () => {
  * @return {void}
  */
 const init = () => {
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
-    });
+  
 
   // Public routes
   app.use('/api/auth', authRoutes);

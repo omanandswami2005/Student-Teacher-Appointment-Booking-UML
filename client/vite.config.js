@@ -1,18 +1,26 @@
-import { defineConfig } from 'vite'
-import { resolve } from 'path'
+// vite.config.js
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+import * as path from 'path';
 
-import react from '@vitejs/plugin-react'
-
-// https://vitejs.dev/config/
 export default defineConfig({
-  
   plugins: [react()],
   build: {
+    outDir: 'dist',
     rollupOptions: {
+      // This ensures that all the routes fallback to index.html
       input: {
         // eslint-disable-next-line no-undef
-        main: resolve(__dirname, 'index.html'),
-    },  
+        main: path.resolve(__dirname, 'index.html'),
+      }
+    }
   },
-  },
-})
+  server: {
+    proxy: {
+      '/api': {
+        target: 'https://stabsbackend.onrender.com',
+        changeOrigin: true
+      }
+    }
+  }
+});

@@ -29,7 +29,7 @@ app.use(express.json());
  */
 app.use(
   cors({
-    origin: 'stabs.onrender.com',
+    origin: 'https://stabs.onrender.com',
     allowedHeaders: ['Content-Type', 'Authorization'],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
