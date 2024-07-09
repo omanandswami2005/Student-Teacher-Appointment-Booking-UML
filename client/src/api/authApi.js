@@ -40,7 +40,6 @@ export const logoutUser = async () => {
  */
 export const checkAuthUser = async () => {
   const response = await axiosInstance.get('/api/auth/check-auth');
-  
   return response.data;
 };
 
