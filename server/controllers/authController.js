@@ -130,7 +130,10 @@ exports.login = asyncHandler(async (req, res) => {
  * @param {Object} res - Express response object.
  */
 exports.logout = asyncHandler(async (req, res) => {
-  res.cookie('token', null, { expires: new Date(Date.now()-2) });
+  res.cookie('token', null, {
+    expires: new Date(Date.now()-2),
+    sameSite: 'none',
+  });
   res.status(200).json(new ApiResponse(200, null, 'Logout successful'));
 });
 
