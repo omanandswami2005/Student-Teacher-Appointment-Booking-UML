@@ -1,0 +1,103 @@
+[{
+  "_id": {
+    "$oid": "668ab97461b15d047747fa8d"
+  },
+  "name": "Omanand Swami",
+  "email": "admin@email.com",
+  "password": "$2b$10$aMNNBshxy4I79tgT.ydj6.o99DD8OUzhV29Id5SlisYnA2Q5u2RXu",
+  "role": "admin",
+  "approved": true,
+  "isVerified": true,
+  "verificationToken": "5982addcac156607499756336f5c96700083108ea61ac5a5d16e641b13574b91",
+  "verificationTokenExpiry": {
+    "$date": "2024-07-07T16:51:16.223Z"
+  },
+  "createdAt": {
+    "$date": "2024-07-07T15:51:16.229Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "668abc8e8b7083333d78e3e4"
+  },
+  "name": "Omiii Swami",
+  "email": "omiiiswami2005@gmail.com",
+  "password": "$2b$10$zsxXtE4KlUU2ns7FWH6xbObhrmA9QR3cdS5hyy8IXC1OoIT4N9vfC",
+  "role": "student",
+  "approved": true,
+  "isVerified": true,
+  "verificationToken": "eac1266147108069edcc79c5dcaed8e282f0b4e91b24000d9e62a53ee6145604",
+  "createdAt": {
+    "$date": "2024-07-07T16:04:30.459Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "668ac01fbf498dba5c703408"
+  },
+  "name": "Shweta Kidile",
+  "email": "shweta@email.com",
+  "password": "$2b$10$dE8Ot67jbTLUKJ9tEveEP.XEgpKLYYzCvePR.cnMPHcvcC126mNQy",
+  "role": "teacher",
+  "department": "Computer",
+  "subject": "OSY",
+  "approved": true,
+  "isVerified": true,
+  "createdAt": {
+    "$date": "2024-07-07T16:19:43.941Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "668ac03ebf498dba5c70340c"
+  },
+  "name": "Akshay Gitte",
+  "email": "akshay@email.com",
+  "password": "$2b$10$wvD4UoFLzE4CrKTxHSszhOiFGKXvPNnaKpnV/Oug3evC5909mKjsi",
+  "role": "teacher",
+  "department": "Computer",
+  "subject": "EST",
+  "approved": true,
+  "isVerified": true,
+  "createdAt": {
+    "$date": "2024-07-07T16:20:14.608Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "668ac06abf498dba5c703410"
+  },
+  "name": "Prathmesh Bavge",
+  "email": "prathmesh@email.com",
+  "password": "$2b$10$Ib5Evlectl0c8UkX.jtm9.tEgZBa9pPuFuMTtUS1EjW43MboXj1E.",
+  "role": "teacher",
+  "department": "Civil",
+  "subject": "Math",
+  "approved": true,
+  "isVerified": true,
+  "createdAt": {
+    "$date": "2024-07-07T16:20:58.706Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "668ac090bf498dba5c703414"
+  },
+  "name": "Harsh Kale",
+  "email": "harsh@email.com",
+  "password": "$2b$10$poaSDPnuWzRLeMIUww29NOQ7IPRUd0DSmacI0Og52fVkgKi7ij7ze",
+  "role": "teacher",
+  "department": "Computer",
+  "subject": "Python",
+  "approved": true,
+  "isVerified": true,
+  "createdAt": {
+    "$date": "2024-07-07T16:21:36.294Z"
+  },
+  "__v": 0
+}]
